@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/caitl/OneDrive - Dundalk Institute of Technology/Year 2/Semester 2/C++/CA2-Bugs-Life
+# Install script for directory: C:/Users/caitl/Desktop/CA2-Bugs-Life
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/caitl/OneDrive - Dundalk Institute of Technology/Year 2/Semester 2/C++/CA2-Bugs-Life/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/caitl/Desktop/CA2-Bugs-Life/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
