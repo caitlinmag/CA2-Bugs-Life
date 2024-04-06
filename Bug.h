@@ -5,26 +5,45 @@
 #ifndef CA2_BUGS_LIFE_BUG_H
 #define CA2_BUGS_LIFE_BUG_H
 
-#endif //CA2_BUGS_LIFE_BUG_H
+#include <utility>
+#include <list>
 
-//Bug is the Abstract Base Class
-
-class Bug{
+using namespace std; //take this out not meant to use
+class Bug {          //abstract base class Bug
 protected:
     int id;                     //bug id
-//    pair<int, int> position;  //co-ordinate pair (x,y)
-    enum direction{             //direction the bug is facing
+
+    pair<int, int> position;    //co-ordinate pair (x,y)
+
+    // I used this website to learn how to define enums in C++
+    // https://www.programiz.com/cpp-programming/enumeration
+    enum direction {             //direction the bug is facing
         North = 1,
         East = 2,
         South = 3,
         West = 4
     };
 
-    int size;
-    bool alive;
-//    list<pair<int,int>> path;
-//
-//    virtual move(){
-//    };
+    int size;                 //bug size will initially be 1 - 20
+
+    bool alive;               //bug life status - set to true initially (false when bug has been eaten)
+
+    list<pair<int, int>> path; //path taken by bug (list of positions on grid)
+
+public:
+    // Used to move a bug from current position to new position
+    // this will be based on rules for the bug type
+    // must use a pure virtual function (no implementation for Bug base class)
+    // pure virtual function - cannot make an instance of Bug - every class derived from Bug will be forced to implement move()
+    virtual void move() = 0;
+
+    // check if bug is at the edge of board
+    // AND if bug is facing in edge direction = way is blocked
+    // method used by move() function
+    bool isWayBlocked() {
+
+    }
 
 };
+
+#endif //CA2_BUGS_LIFE_BUG_H
