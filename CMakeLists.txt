@@ -4,4 +4,9 @@ project(CA2_Bugs_Life)
 set(CMAKE_CXX_STANDARD 17)
 
 add_executable(CA2_Bugs_Life main.cpp
-        Bug.h)
+        Bug.h
+        Bug.cpp
+        Crawler.cpp
+        Crawler.h
+        Hopper.cpp
+        Hopper.h)

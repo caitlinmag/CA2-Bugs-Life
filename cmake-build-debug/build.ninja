@@ -55,6 +55,24 @@ build CMakeFiles/CA2_Bugs_Life.dir/main.cpp.obj: CXX_COMPILER__CA2_Bugs_Life_uns
   OBJECT_DIR = CMakeFiles\CA2_Bugs_Life.dir
   OBJECT_FILE_DIR = CMakeFiles\CA2_Bugs_Life.dir
 
+build CMakeFiles/CA2_Bugs_Life.dir/Bug.cpp.obj: CXX_COMPILER__CA2_Bugs_Life_unscanned_Debug C$:/Users/caitl/Desktop/CA2-Bugs-Life/Bug.cpp || cmake_object_order_depends_target_CA2_Bugs_Life
+  DEP_FILE = CMakeFiles\CA2_Bugs_Life.dir\Bug.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\CA2_Bugs_Life.dir
+  OBJECT_FILE_DIR = CMakeFiles\CA2_Bugs_Life.dir
+
+build CMakeFiles/CA2_Bugs_Life.dir/Crawler.cpp.obj: CXX_COMPILER__CA2_Bugs_Life_unscanned_Debug C$:/Users/caitl/Desktop/CA2-Bugs-Life/Crawler.cpp || cmake_object_order_depends_target_CA2_Bugs_Life
+  DEP_FILE = CMakeFiles\CA2_Bugs_Life.dir\Crawler.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\CA2_Bugs_Life.dir
+  OBJECT_FILE_DIR = CMakeFiles\CA2_Bugs_Life.dir
+
+build CMakeFiles/CA2_Bugs_Life.dir/Hopper.cpp.obj: CXX_COMPILER__CA2_Bugs_Life_unscanned_Debug C$:/Users/caitl/Desktop/CA2-Bugs-Life/Hopper.cpp || cmake_object_order_depends_target_CA2_Bugs_Life
+  DEP_FILE = CMakeFiles\CA2_Bugs_Life.dir\Hopper.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\CA2_Bugs_Life.dir
+  OBJECT_FILE_DIR = CMakeFiles\CA2_Bugs_Life.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target CA2_Bugs_Life
@@ -63,7 +81,7 @@ build CMakeFiles/CA2_Bugs_Life.dir/main.cpp.obj: CXX_COMPILER__CA2_Bugs_Life_uns
 #############################################
 # Link the executable CA2_Bugs_Life.exe
 
-build CA2_Bugs_Life.exe: CXX_EXECUTABLE_LINKER__CA2_Bugs_Life_Debug CMakeFiles/CA2_Bugs_Life.dir/main.cpp.obj
+build CA2_Bugs_Life.exe: CXX_EXECUTABLE_LINKER__CA2_Bugs_Life_Debug CMakeFiles/CA2_Bugs_Life.dir/main.cpp.obj CMakeFiles/CA2_Bugs_Life.dir/Bug.cpp.obj CMakeFiles/CA2_Bugs_Life.dir/Crawler.cpp.obj CMakeFiles/CA2_Bugs_Life.dir/Hopper.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\CA2_Bugs_Life.dir
