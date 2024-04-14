@@ -7,3 +7,6 @@
 
 using namespace std;
 
+Bug::~Bug() {
+    cout << "~Bug() called. Bug destructor " << endl;
+}

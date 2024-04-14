@@ -6,6 +6,11 @@
 #include <iostream>
 using namespace std;
 
-//void Bug::move() {      //implementation of Hopper move
-//        cout << "Moving a hopper bug " << endl;
-//}
+Hopper::Hopper(int id, int x, int y, Direction direction1, int size, bool alive, int hopLength) {
+}
+
+void Hopper::move() {      //implementation of Hopper move()
+    cout << "Moving a hopper bug " << endl;
+
+}
+
