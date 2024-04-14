@@ -6,6 +6,28 @@
 #include <iostream>
 using namespace std;
 
-void Bug::move() {        //implementation of Crawler move()
+
+Crawler::Crawler(int id, int x, int y, Direction direction, int size, bool alive){};
+
+void Crawler::move() {        //implementation of Crawler move()
 cout << "Moving a crawler bug " << endl;
+
+this->id =4;
+
+if(this->direction == Direction::North) {
+    // bla bla
+
+    int x = this->position.first;
+    int y = this->position.second;
+
+    this->position.first -= 1;
+
+
+
 }
+
+
+}
+
+
+

@@ -15,14 +15,11 @@ class Crawler : public Bug{     //inherits from Bug
 // if at edge of board and can't move in current direction (way blocked) - then set a new direction at random
 // - repeat until bug can move forward
 // record new position in crawlers path history
-//    void move(){
-//
-//    };
 
+public:
+    Crawler(int id, int x, int y, Direction direction, int size, bool alive);
 
-
-
-
+    void move() override; // only the function prototype
 };
 #endif //CA2_BUGS_LIFE_CRAWLER_H
 

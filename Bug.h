@@ -9,20 +9,20 @@
 #include <list>
 
 using namespace std; //take this out not meant to use
+enum Direction {             //direction the bug is facing
+    North = 1,
+    East = 2,
+    South = 3,
+    West = 4
+};
+
 class Bug {          //abstract base class Bug
 protected:
     int id;                     //bug id
 
     pair<int, int> position;    //co-ordinate pair (x,y)
 
-    // I used this website to learn how to define enums in C++
-    // https://www.programiz.com/cpp-programming/enumeration
-    enum direction {             //direction the bug is facing
-        North = 1,
-        East = 2,
-        South = 3,
-        West = 4
-    };
+    Direction direction;    // a variable of type Direction
 
     int size;                 //bug size will initially be 1 - 20
 
@@ -42,7 +42,9 @@ public:
     // method used by move() function
     bool isWayBlocked() {
 
-    }
+    };
+
+    virtual ~Bug(); //virtual Bug destructor - can be overridden in crawler, and hopper class
 
 };
 
