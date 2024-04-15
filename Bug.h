@@ -40,9 +40,7 @@ public:
     // check if bug is at the edge of board
     // AND if bug is facing in edge direction = way is blocked
     // method used by move() function
-    bool isWayBlocked() {
-
-    };
+     bool isWayBlocked() {};
 
     virtual ~Bug(); //virtual Bug destructor - can be overridden in crawler, and hopper class
 
