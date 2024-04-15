@@ -5,6 +5,7 @@
 #include "Crawler.h"
 #include "Hopper.h"
 #include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -50,7 +51,7 @@ void read_bug_by_bug(ifstream &ifstream1) {
 }
 
 // take in the vector in here 
-void read_bugs(ifstream &ifstream1) {
+void read_bugs(ifstream &fin) {
     /**
      *  Assign variables from reading in the text file
      *
@@ -60,38 +61,27 @@ void read_bugs(ifstream &ifstream1) {
      *  need to also check for ';'
 
      *  Populate the vector with these objects
-     *
      */
 
-
-//    int id;
-//    pair<int, int> position;  //x,y
-//    Direction direction;
-//    int size;
-//    bool alive;
-//    int x;
-//    int y;
-
     string line;
-    while (getline(ifstream1, line)) {
+    vector<Bug *> bug_vector;    // vector of bugs
+
+    while (getline(fin, line)) {
 //        https://stackoverflow.com/questions/23064400/read-first-n-letters-from-file-to-a-string
 
 // Bug fields
-        int id, x, y, direction, size, hopLength;
+//        int id, x, y, direction, size, hopLength;
         bool alive;
         string str;
         int length = 10;
 
-        vector<Bug *> bug_vector;    // vector of bugs
 
 //        str.resize(length, ' ');
 
         // variables
         char *beginningOfFile = &*str.begin();  // to start iterating through file
-        char semiColonFound = ';';              // semi colon
+        // semi colon
         //char bugType = line[0];                 // first character in the line , c = crawler, h = hopper
-
-
 
 //        if (bugType == 'C') {
 //            cout << "this is a crawler bug" << endl;
@@ -104,8 +94,8 @@ void read_bugs(ifstream &ifstream1) {
 ////
 ////            // pushing the crawler bug into the vector
 ////            bug_vector.push_back(crawlerBug);
-//
-//
+
+
 ////            cout << " crawler bug " << crawlerBug;
 //
 //        } else if (bugType == 'H') {
@@ -115,43 +105,120 @@ void read_bugs(ifstream &ifstream1) {
 //        }
 
 
-
 //        // for loop - iterate through each character in each line - https://cplusplus.com/forum/beginner/24492/
 //        for (int i = 0; i < line.length(); ++i) {
 //            char ch = line[i];
 //            cout << ch << endl;
 //        }
 
-    for (int i = 0; i < line.length(); ++i) {
-        string bugType = line.substr(i, 1);
-        string id = line.substr(2, 3);
-        string x = line.substr(6, 1);
-        string y = line.substr(8, 1);
-        string size = line.substr(10, 1);
 
-        cout << "bug type " << bugType << endl;
-        cout << "bug id " << id << endl;
-        cout << "x " << x << endl;
-        cout << "y" << y << endl;
-        cout << "size" << size << endl;
+        /**
+         *      Used this reference to learn how to split the string from the semi colon delimiter
+         *      https://www.geeksforgeeks.org/split-string-by-space-into-vector-in-cpp-stl/
+         */
 
-        //stoi
+        string newString;
 
-        // crawler bug
-        if (bugType == "C") {
-            cout << "this is a crawler bug" << endl;
-//            Crawler crawlerBug = new Crawler(bugType, id, x, y, size);
-        } else if (bugType == "H") {
-            cout << "this is a hopper bug" << endl;
-            string hopLength = line.substr(12, 1);
-            cout << "hop length" << hopLength << endl;
+        stringstream s(line);
 
-        }else{
-            cout << "There are no crawler or hopper bugs in the file." << endl;
+        vector<string> bugWithoutDelimiter; // vector of the bugs in txt file with the semi colon removed
+
+        Bug *bugPtr; //Point at any object derived from the Bug class
+        bugPtr = nullptr;
+
+        while (getline(s, newString, ';')) {
+            bugWithoutDelimiter.push_back(newString);  // push the new string into the vector
         }
 
-    }
+        if(bugWithoutDelimiter.size() >= 6) {
+            string bugType = bugWithoutDelimiter[0];
+            int id = stoi(bugWithoutDelimiter[1]);
+            int x = stoi(bugWithoutDelimiter[2]);
+            int y = stoi(bugWithoutDelimiter[3]);
+            int direction = stoi(bugWithoutDelimiter[4]);
+            int size = stoi(bugWithoutDelimiter[5]);
 
+            if (bugWithoutDelimiter[0] == "C") {
+                cout << "this is a crawler bug" << endl;
+                cout << "bug type " << bugType << endl;
+                cout << "bug id " << id << endl;
+                cout << "x " << x << endl;
+                cout << "y " << y << endl;
+                cout << "direction " << direction << endl;
+                cout << "size " << size << endl;
+                cout << " " << endl;
+
+                bugPtr = new Crawler(id, x, y, static_cast<Direction>(direction), size, alive);
+
+            } else if (bugWithoutDelimiter[0] == "H") {
+                int hopLength = stoi(bugWithoutDelimiter[6]);
+
+                cout << " this is a hopper bug" << endl;
+                cout << " bug type " << bugType << endl;
+                cout << "bug id " << id << endl;
+                cout << "x " << x << endl;
+                cout << "y " << y << endl;
+                cout << "direction " << direction << endl;
+                cout << "size " << size << endl;
+                cout << "hop length " << hopLength << endl;
+
+                bugPtr = new Hopper(id, x, y, static_cast<Direction>(direction), size, hopLength, alive);
+            } else {
+                cout << "There are no hopper or crawler bugs in the file." << endl;
+            }
+        }
+
+        // add the crawler and hopper bugs to the bug vector
+        bug_vector.push_back(bugPtr);
+
+
+//        for (int i = 0; i < line.length(); i += 16) {
+//            string bugType = line.substr(i, 1);
+//            string readId = line.substr(2, 3);
+//            string readX = line.substr(6, 1);
+//            string readY = line.substr(8, 1);
+//            string readDirection = line.substr(10, 1);
+//            string readSize = line.substr(12, 2);
+//
+//            // convert strings to ints
+//            int id = stoi(readId);
+//            int x = stoi(readX);
+//            int y = stoi(readY);
+//            int direction = stoi(readDirection);
+//            int size = stoi(readSize);
+//
+//            // crawler bug
+//            if (bugType == "C") {
+//                cout << "this is a crawler bug" << endl;
+//                cout << "bug type " << bugType << endl;
+//                cout << "bug id " << id << endl;
+//                cout << "x " << x << endl;
+//                cout << "y " << y << endl;
+//                cout << "direction " << direction << endl;
+//                cout << "size " << size << endl;
+//                cout << " " << endl;
+//
+////                Bug* crawlerBug = new Crawler(id, x, y, static_cast<Direction>(direction), size, alive);
+//
+//            } else if (bugType == "H") {
+//                cout << "this is a hopper bug" << endl;
+//
+//                cout << "bug type " << bugType << endl;
+//                cout << "bug id " << id << endl;
+//                cout << "x " << x << endl;
+//                cout << "y " << y << endl;
+//                cout << "direction " << direction << endl;
+//                cout << "size " << size << endl;
+//
+//                string readHopLength = line.substr(i + 14, 1);
+//
+//                int hopLength = stoi(readHopLength);
+//                cout << "hop length " << hopLength << endl;
+//                cout << " " << endl;
+//            } else {
+//                cout << "There are no crawler or hopper bugs in the file." << endl;
+//            }
+//        }
 
 //        ifstream1.read(beginningOfFile, length);
 //
@@ -174,8 +241,21 @@ void read_bugs(ifstream &ifstream1) {
 //            } else {
 //                cout << "There are no Crawler or Hopper bugs in this text file.";
 //            }
+    }
+    // print bug vector
+    cout << " vector of bugs: " << endl;
 
-        }
+    vector<Bug*>::size_type size = bug_vector.size();
+
+    for(int i = 0; i < size; i++){
+        cout << bug_vector.at(i) << endl;
+    }
+//
+//    for(auto i: bug_vector){
+//        cout << i << ' ';
+//    }
+
+
 }
 
 
