@@ -8,7 +8,7 @@
 #include <utility>
 #include <list>
 
-using namespace std; //take this out not meant to use
+using namespace std; //take this out not meant to use   // DL correct, use in .cpp only, but then you need to use std:: everywhere below
 enum Direction {             //direction the bug is facing
     North = 1,
     East = 2,
