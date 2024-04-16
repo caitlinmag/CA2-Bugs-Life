@@ -14,6 +14,10 @@ cout << "Moving a crawler bug " << endl;
 
 this->id =4;
 
+    // get the direction crawler currently facing
+    // check at edge of board - isWayBlocked()
+    //
+
 if(this->direction == Direction::North) {
     // bla bla
 
@@ -21,7 +25,6 @@ if(this->direction == Direction::North) {
     int y = this->position.second;
 
     this->position.first -= 1;
-
 
 
 }

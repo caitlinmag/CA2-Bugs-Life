@@ -20,7 +20,7 @@ class Bug {          //abstract base class Bug
 protected:
     int id;                     //bug id
 
-    pair<int, int> position;    //co-ordinate pair (x,y)
+    std::pair<int, int> position;    //co-ordinate pair (x,y)
 
     Direction direction;    // a variable of type Direction
 
@@ -28,7 +28,8 @@ protected:
 
     bool alive;               //bug life status - set to true initially (false when bug has been eaten)
 
-    list<pair<int, int>> path; //path taken by bug (list of positions on grid)
+    std::list<pair<int, int>> path; //path taken by bug (list of positions on grid)
+
 
 public:
     // Used to move a bug from current position to new position
@@ -40,7 +41,7 @@ public:
     // check if bug is at the edge of board
     // AND if bug is facing in edge direction = way is blocked
     // method used by move() function
-     bool isWayBlocked() {};
+     bool isWayBlocked() ;
 
     virtual ~Bug(); //virtual Bug destructor - can be overridden in crawler, and hopper class
 
