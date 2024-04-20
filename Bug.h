@@ -30,8 +30,11 @@ protected:
 
     std::list<std::pair<int, int>> path;    //path taken by bug (list of positions on grid)
 
-
 public:
+    virtual ~Bug(); //virtual Bug destructor - can be overridden in crawler, and hopper class
+
+    int getBugId() const;
+
     // Used to move a bug from current position to new position
     // this will be based on rules for the bug type
     // must use a pure virtual function (no implementation for Bug base class)
@@ -43,8 +46,7 @@ public:
     // method used by move() function
     bool isWayBlocked() ;
 
-    virtual ~Bug(); //virtual Bug destructor - can be overridden in crawler, and hopper class
-
+    virtual void print() const;
 };
 
 #endif //CA2_BUGS_LIFE_BUG_H

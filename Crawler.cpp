@@ -9,7 +9,8 @@
 using namespace std;
 
 
-Crawler::Crawler(int id, int x, int y, Direction direction, int size, bool alive){};
+Crawler::Crawler(int id, int x, int y, Direction direction, int size){};  // bool alive has been taken out - was getting an error with it in constructor
+
 
 //TODO: implement logic for when a crawler bug moves
 // need to check if wayIsBlocked() everytime a bug moves - if it is then move to a random cell
@@ -74,10 +75,6 @@ this->id =4;
 
     //TODO: get the new position
     // add to crawlers path history
-
-
-
-
 }
 
 // TODO: could make a function instead, to set a random direction
@@ -89,3 +86,7 @@ void setNewDirection(){
 
 // TODO: make a function to display and record the new path history
 
+// printing the fields of a Crawler bug
+void Crawler::print() const  {
+    cout << this->id << " Crawler " << "(" << this->position.first << "," << this->position.second << ") " << this->size << " " << this->direction << " " << this->alive << endl;
+}
