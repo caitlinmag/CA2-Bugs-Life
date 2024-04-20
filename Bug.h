@@ -8,7 +8,7 @@
 #include <utility>
 #include <list>
 
-using namespace std; //take this out not meant to use   // DL correct, use in .cpp only, but then you need to use std:: everywhere below
+//using namespace std; //take this out not meant to use   // DL correct, use in .cpp only, but then you need to use std:: everywhere below
 enum Direction {             //direction the bug is facing
     North = 1,
     East = 2,
@@ -20,15 +20,15 @@ class Bug {          //abstract base class Bug
 protected:
     int id;                     //bug id
 
-    std::pair<int, int> position;    //co-ordinate pair (x,y)
+    std::pair<int, int> position;    //co-ordinate pair (x,y) - (0,0) is the top left hand cell
 
-    Direction direction;    // a variable of type Direction
+    Direction direction;      // a variable of type Direction
 
     int size;                 //bug size will initially be 1 - 20
 
     bool alive;               //bug life status - set to true initially (false when bug has been eaten)
 
-    std::list<pair<int, int>> path; //path taken by bug (list of positions on grid)
+    std::list<std::pair<int, int>> path;    //path taken by bug (list of positions on grid)
 
 
 public:
@@ -41,7 +41,7 @@ public:
     // check if bug is at the edge of board
     // AND if bug is facing in edge direction = way is blocked
     // method used by move() function
-     bool isWayBlocked() ;
+    bool isWayBlocked() ;
 
     virtual ~Bug(); //virtual Bug destructor - can be overridden in crawler, and hopper class
 

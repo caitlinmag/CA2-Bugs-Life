@@ -10,12 +10,6 @@
 #include "Bug.h"
 class Crawler : public Bug{     //inherits from Bug
 
-// crawler move rules:
-// moves y 1 unit in direction currently facing
-// if at edge of board and can't move in current direction (way blocked) - then set a new direction at random
-// - repeat until bug can move forward
-// record new position in crawlers path history
-
 public:
     Crawler(int id, int x, int y, Direction direction, int size, bool alive);
 
