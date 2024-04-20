@@ -11,9 +11,11 @@
 class Crawler : public Bug{     //inherits from Bug
 
 public:
-    Crawler(int id, int x, int y, Direction direction, int size, bool alive);
+    Crawler(int id, int x, int y, Direction direction, int size);
 
     void move() override; // only the function prototype
+
+    void print() const override; // displaying fields of a Crawler Bug
 };
 #endif //CA2_BUGS_LIFE_CRAWLER_H
 

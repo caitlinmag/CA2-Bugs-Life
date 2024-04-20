@@ -11,6 +11,10 @@ Bug::~Bug() {
     cout << "~Bug() called. Bug destructor " << endl;
 }
 
+int Bug::getBugId() const{     // creating a getter for bugId to use in the findBugById() function
+    return this->id;
+}
+
 //TODO: implement logic for isWayBlocked()
 // the bug board is 10 x 10 so max is so min cell is 0 and max is 9
 bool Bug::isWayBlocked() {
@@ -48,4 +52,8 @@ bool Bug::isWayBlocked() {
         return true;
     }
 
+    // otherwise way is blocked
+    return false;
 }
+
+void Bug::print() const {};

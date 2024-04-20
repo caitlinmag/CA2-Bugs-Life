@@ -13,6 +13,8 @@
 //
 //public:
     void fillBugsVector(std::ifstream &fin, std::vector<Bug *> &bug_vector);
+    void displayAllBugs(std::vector<Bug *> &bug_vector);
+    void findBugById(std::vector<Bug *> &bug_vector);
 //};
 
 #endif //CA2_BUGS_LIFE_BOARD_H

@@ -11,7 +11,7 @@
 
 class Hopper : public Bug {
 private:
-    int hopLength;              // distance hopper bug can hop (2-4 units)
+    int hopLength{};              // distance hopper bug can hop (2-4 units)
 
 public:
     // moves by hopLength units in current direction
@@ -20,11 +20,11 @@ public:
     // if bug can't move the full hopLength - bug does move but hits edge and falls on square where it hit edge
     // record new position in hoppers path history
 
-    Hopper(int id, int x, int y, Direction direction1, int size, bool alive, int hopLength);
+    Hopper(int id, int x, int y, Direction direction, int size, int hopLength);
 
 // function prototype
     void move() override;
-
+    void print() const override ;
 };
 
 #endif //CA2_BUGS_LIFE_HOPPER_H
