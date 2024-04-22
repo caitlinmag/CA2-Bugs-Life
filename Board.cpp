@@ -98,7 +98,6 @@ void Board::fillBugsVector(ifstream &fin) {
 
         // add the crawler and hopper bugs to the bug vector
         bug_vector.push_back(bugPtr);
-
     }
     // print bug vector
     cout << " vector of bugs: " << endl;
@@ -108,68 +107,43 @@ void Board::fillBugsVector(ifstream &fin) {
     for (int i = 0; i < size; i++) {
         cout << bug_vector.at(i) << endl;
     }
-
 }
 
-// function to
-void Board::displayAllBugs() { // passing in a reference to vector of pointer to bug
-//    vector<Bug *>::size_type size = bug_vector.size();
-//
-//    for (int i = 0; i < size; i++) {
-//        cout << bug_vector.at(i) << endl;
-//    }
-
-    cout << "Printing all bugs" << endl;
+void Board::displayAllBugs() {
+    cout << "**************    DISPLAYING ALL BUGS    **************" << endl;
     // iterate through the bugs vector and call the print method
-    //for(Bug* bugPtr: bug_vector){ // dereference the pointer
     for (auto iter = bug_vector.begin(); iter != bug_vector.end(); iter++) {
-        Bug* b = *iter;
-        b->print();
+        Bug* b = *iter;     // dereference the iter and assign to pointer to bug object b
+        b->print();         // printing all bugs - separate crawler and hopper print methods
     }
 }
 
-//TODO: finish this method - it is only outputting "bug xxx not found" multiple times - even when the bug is present in the file
-// try using an iterator to go through the vector - might stop the repeating
 void Board::findBugById() {
-    int inputtedId;
+    int inputId;
+    bool bugFound;
 
-    // ask the user for a bug ID
-    cout << "Please Enter the Bug ID you would like to find: " << endl;
-    cin >> inputtedId;
+    cout << "**************    FIND A BUG    **************" << endl;
+    cout << "Please Enter the Bug ID you would like to find: " << endl;       // ask the user for a bug ID
+    cin >> inputId;
 
-    // maybe try using an iterator?
-
-    auto iter = bug_vector.begin(); // setting the iterator to the start of the vector
-
-//    while(iter!=bug_vector.end()){
-//        if(*iter == inputtedId){
-//            cout << "Bug " << inputtedId << " found" << endl;
-//            idFound = true;
-//        }else{
-//            cout << "bug " << inputtedId << " not found." << endl;
-//            idFound = false;
-//        }
-//    }
-//
-
-    for (Bug *&bugPtr: bug_vector) {       // iterate through the bug_vector to find the bugID
-        if (bugPtr->getBugId() ==
-            inputtedId) {       // getting the bugId using a bug pointer - checking if it is equal to the inputted id
-            cout << "Bug " << inputtedId << " found" << endl;      // bug found
-            bugPtr->print();    // output the bug details
-
-        } else {      // bug not found - bug isn't in the txt file
-            cout << "bug " << inputtedId << " not found." << endl;
+    for (auto iter = bug_vector.begin(); iter != bug_vector.end(); iter++) {      // iterate through the bug_vector to find the bugID
+        Bug* b = *iter;         // dereference the iter and assign to pointer to bug object b
+        if(b->getBugId() == inputId){    // checking if the bugId is equal to the input id from the user
+            cout << "Bug " << inputId << " has been found." << endl;      // bug is found
+            b->print();         // printing the bug details
+            bugFound = true;    // set to true
         }
     }
 
-    // output bug details if found
-
-    // else
-    // output "bug xxx not found". xxx is the id
+    // outside of the for loop - checking if the input bug id  has NOT been found
+    // then output the message - inside the for loop it will repeat this message for every bug
+    if(!bugFound){
+        cout << "Bug " << inputId << " has not been found." << endl;      // bug is found
+    }
 }
 
 void Board::tapBugBrd(){
+    cout << "**************    TAP THE BUG BOARD    **************" << endl;
     for(Bug* bugPtr: bug_vector){   // call the move methods for crawler and hopper bugs
         bugPtr->move();             // use this for menu option 4 - tap the board bug
     }
