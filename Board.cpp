@@ -3,18 +3,21 @@
 //
 
 #include <iostream>
-#include <fstream> //to access file input and output
+#include <fstream> //   to access file input and output
 #include <vector>
 #include "Bug.h"
 #include "Crawler.h"
 #include "Hopper.h"
+#include "Board.h"
 #include <string>
 #include <sstream>
 
 using namespace std;
 
+Board::Board(){} // board constructor
+
 // take in reference to file input and bugs vector
-void fillBugsVector(ifstream &fin, vector<Bug *> &bug_vector) {
+void Board::fillBugsVector(ifstream &fin) {
     /**
      *  Assign variables from reading in the text file
      *
@@ -30,6 +33,7 @@ void fillBugsVector(ifstream &fin, vector<Bug *> &bug_vector) {
 
     while (getline(fin, line)) {
 
+        bool alive = true; //
         /**
          *      Used this reference to learn how to split the string from the semi colon delimiter
          *      https://www.geeksforgeeks.org/split-string-by-space-into-vector-in-cpp-stl/
@@ -45,14 +49,18 @@ void fillBugsVector(ifstream &fin, vector<Bug *> &bug_vector) {
 
         bugPtr = nullptr;
 
-        while (getline(s, newString,';')) {   // taking in the stringstream, new string and semicolon - split the string when a ";" is found
+        while (getline(s, newString,
+                       ';')) {   // taking in the stringstream, new string and semicolon - split the string when a ";" is found
             bugWithoutDelimiter.push_back(newString);      // push the new string into the vector
         }
 
-        if (bugWithoutDelimiter.size() >=6) {         // size >= 6 as a bug would have no more than 6 fields (crawler = 5 , hopper = 6)
+        if (bugWithoutDelimiter.size() >=
+            6) {         // size >= 6 as a bug would have no more than 6 fields (crawler = 5 , hopper = 6)
             string bugType = bugWithoutDelimiter[0];
-            int id = stoi(bugWithoutDelimiter[1]);     // using the method stoi() to convert the strings to ints and storing them in bug field variables
-            int x = stoi(bugWithoutDelimiter[2]);      // getting the bug fields based on the position in the bugWithoutDelimiter vector
+            int id = stoi(
+                    bugWithoutDelimiter[1]);     // using the method stoi() to convert the strings to ints and storing them in bug field variables
+            int x = stoi(
+                    bugWithoutDelimiter[2]);      // getting the bug fields based on the position in the bugWithoutDelimiter vector
             int y = stoi(bugWithoutDelimiter[3]);
             int direction = stoi(bugWithoutDelimiter[4]);
             int size = stoi(bugWithoutDelimiter[5]);
@@ -68,7 +76,7 @@ void fillBugsVector(ifstream &fin, vector<Bug *> &bug_vector) {
                 cout << " " << endl;
 
                 // creating a new crawler bug based on the fields that have been taken in from the text file
-                bugPtr = new Crawler(id, x, y, static_cast<Direction>(direction), size);
+                bugPtr = new Crawler(id, x, y, static_cast<Direction>(direction), size, alive);
 
             } else if (bugWithoutDelimiter[0] == "H") {           // checking the bug type - Hopper
                 int hopLength = stoi(bugWithoutDelimiter[6]); // only getting the hopLength if the bug is a hopper
@@ -82,7 +90,7 @@ void fillBugsVector(ifstream &fin, vector<Bug *> &bug_vector) {
                 cout << "size " << size << endl;
                 cout << "hop length " << hopLength << endl;
 
-                bugPtr = new Hopper(id, x, y, static_cast<Direction>(direction), size, hopLength);
+                bugPtr = new Hopper(id, x, y, static_cast<Direction>(direction), size, hopLength, alive);
             } else {
                 cout << "There are no hopper or crawler bugs in the file." << endl;
             }
@@ -100,10 +108,11 @@ void fillBugsVector(ifstream &fin, vector<Bug *> &bug_vector) {
     for (int i = 0; i < size; i++) {
         cout << bug_vector.at(i) << endl;
     }
+
 }
 
 // function to
-void displayAllBugs(vector<Bug *> &bug_vector){ // passing in a reference to vector of pointer to bug
+void Board::displayAllBugs() { // passing in a reference to vector of pointer to bug
 //    vector<Bug *>::size_type size = bug_vector.size();
 //
 //    for (int i = 0; i < size; i++) {
@@ -112,14 +121,16 @@ void displayAllBugs(vector<Bug *> &bug_vector){ // passing in a reference to vec
 
     cout << "Printing all bugs" << endl;
     // iterate through the bugs vector and call the print method
-    for(Bug* & bugPtr: bug_vector){ // dereference the pointer
-        bugPtr->print();
+    //for(Bug* bugPtr: bug_vector){ // dereference the pointer
+    for (auto iter = bug_vector.begin(); iter != bug_vector.end(); iter++) {
+        Bug* b = *iter;
+        b->print();
     }
 }
 
 //TODO: finish this method - it is only outputting "bug xxx not found" multiple times - even when the bug is present in the file
 // try using an iterator to go through the vector - might stop the repeating
-void findBugById(vector<Bug *> &bug_vector){
+void Board::findBugById() {
     int inputtedId;
 
     // ask the user for a bug ID
@@ -141,12 +152,13 @@ void findBugById(vector<Bug *> &bug_vector){
 //    }
 //
 
-    for(Bug * &bugPtr : bug_vector){       // iterate through the bug_vector to find the bugID
-        if(bugPtr->getBugId() == inputtedId){       // getting the bugId using a bug pointer - checking if it is equal to the inputted id
+    for (Bug *&bugPtr: bug_vector) {       // iterate through the bug_vector to find the bugID
+        if (bugPtr->getBugId() ==
+            inputtedId) {       // getting the bugId using a bug pointer - checking if it is equal to the inputted id
             cout << "Bug " << inputtedId << " found" << endl;      // bug found
             bugPtr->print();    // output the bug details
 
-        }else{      // bug not found - bug isn't in the txt file
+        } else {      // bug not found - bug isn't in the txt file
             cout << "bug " << inputtedId << " not found." << endl;
         }
     }
@@ -157,4 +169,8 @@ void findBugById(vector<Bug *> &bug_vector){
     // output "bug xxx not found". xxx is the id
 }
 
-
+void Board::tapBugBrd(){
+    for(Bug* bugPtr: bug_vector){   // call the move methods for crawler and hopper bugs
+        bugPtr->move();             // use this for menu option 4 - tap the board bug
+    }
+}

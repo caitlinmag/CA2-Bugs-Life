@@ -8,9 +8,14 @@
 #include <chrono>
 using namespace std;
 
-
-Crawler::Crawler(int id, int x, int y, Direction direction, int size){};  // bool alive has been taken out - was getting an error with it in constructor
-
+Crawler::Crawler(int id, int x, int y, Direction direction, int size, bool alive){
+    this->id = id;
+    this->position.first = x;
+    this->position.second = y;
+    this->direction = direction;
+    this->size = size;
+    this->alive = alive;
+}; // bool alive has been taken out - was getting an error with it in constructor
 
 //TODO: implement logic for when a crawler bug moves
 // need to check if wayIsBlocked() everytime a bug moves - if it is then move to a random cell
@@ -87,6 +92,7 @@ void setNewDirection(){
 // TODO: make a function to display and record the new path history
 
 // printing the fields of a Crawler bug
-void Crawler::print() const  {
+void Crawler::print() const {
     cout << this->id << " Crawler " << "(" << this->position.first << "," << this->position.second << ") " << this->size << " " << this->direction << " " << this->alive << endl;
 }
+

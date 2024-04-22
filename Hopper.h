@@ -20,7 +20,7 @@ public:
     // if bug can't move the full hopLength - bug does move but hits edge and falls on square where it hit edge
     // record new position in hoppers path history
 
-    Hopper(int id, int x, int y, Direction direction, int size, int hopLength);
+    Hopper(int id, int x, int y, Direction direction, int size, int hopLength, bool alive);
 
 // function prototype
     void move() override;

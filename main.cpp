@@ -11,10 +11,10 @@
 using namespace std;
 
 //function prototypes
-void displayMenu();
 
 int main() {
-    vector<Bug *> bug_vector;        // declare vector of pointers to Bug objects - type vector of pointers to Bug objects
+    Board brd;                                    // make a board object
+//    vector<Bug *> vector_ref;        // declare vector of pointers to Bug objects - type vector of pointers to Bug objects
 
     // read data from text file "bugs.txt"
     ifstream fin("bugs.txt");         //create input file stream to the text file "bugs.txt"
@@ -40,46 +40,48 @@ int main() {
             cin >> choice;
             switch (choice) {
                 case 1: {
-                    // load data from the file
-                    fillBugsVector(fin, bug_vector);               //storing each bug being read in to the text file
+                    // load data from the file and fill the vector
+                    brd.fillBugsVector(fin);
+
+//                    fillBugsVector(fin, vector_ref);               //storing each bug being read in to the text file
                     break;
                 }
                 case 2: {
                     // display all bugs
-                    displayAllBugs(bug_vector);
+                    brd.displayAllBugs();
+//                    displayAllBugs(bug_vector);
                     //TODO: create function displaying bugs from the vector - showing id, type, location, size , direction, hopLength, status (dead or alive)
                     break;
                 }
-                case 3:{
+                case 3: {
                     //find a bug (take in user input of id)
-                    findBugById(bug_vector);
+                    brd.findBugById();
+//                    findBugById(bug_vector);
                     break;
                 }
-                case 4:{
+                case 4: {
                     //tap bug board (moves all bugs - fight/eat)
-                    for(Bug* bugPtr: bug_vector){   // call the move methods for crawler and hopper bugs
-                        bugPtr->move();             // use this for menu option 4 - tap the board bug
-                    }
+                    brd.tapBugBrd();
+
                     //TODO: when calling the move function - need to check if there are bugs in the same cell
                     break;
                 }
-                case 5:{
+                case 5: {
                     //display life history of all bugs (path)
                     break;
                 }
-                case 6:{
+                case 6: {
                     //display all cells listing their bugs
                     break;
                 }
-                case 7:{
+                case 7: {
                     //run simulation (generates a tap every second)
                     break;
                 }
-                case 8:{
+                case 8: {
                     //write life history of all bugs to file before exit
                 }
             }
-
 
         } while (choice != 8);         // 8 is the option to exit - will write the life history of all bugs to file
 
@@ -88,11 +90,11 @@ int main() {
     }
     fin.close();
 
-    for(Bug* ptr: bug_vector){
-        delete ptr;                 // free the memory
-    }
-
-    bug_vector.clear();             // clear the contents of the bug_vector
+//    for(Bug* ptr: bug_vector){
+//        delete ptr;                 // free the memory
+//    }
+//
+//    bug_vector.clear();             // clear the contents of the bug_vector
 
     return 0;
 
