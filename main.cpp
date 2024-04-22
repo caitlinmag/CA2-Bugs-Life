@@ -49,20 +49,16 @@ int main() {
                 case 2: {
                     // display all bugs
                     brd.displayAllBugs();
-//                    displayAllBugs(bug_vector);
-                    //TODO: create function displaying bugs from the vector - showing id, type, location, size , direction, hopLength, status (dead or alive)
                     break;
                 }
                 case 3: {
                     //find a bug (take in user input of id)
                     brd.findBugById();
-//                    findBugById(bug_vector);
                     break;
                 }
                 case 4: {
                     //tap bug board (moves all bugs - fight/eat)
                     brd.tapBugBrd();
-
                     //TODO: when calling the move function - need to check if there are bugs in the same cell
                     break;
                 }
