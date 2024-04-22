@@ -56,4 +56,7 @@ bool Bug::isWayBlocked() {
     return false;
 }
 
-void Bug::print() const {};
+void Bug::move() {}
+
+void Bug::print() const {}
+

@@ -46,7 +46,7 @@ public:
     // method used by move() function
     bool isWayBlocked() ;
 
-    virtual void print() const;
+    virtual void print() const = 0;
 };
 
 #endif //CA2_BUGS_LIFE_BUG_H

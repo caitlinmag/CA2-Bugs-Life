@@ -11,7 +11,7 @@
 class Crawler : public Bug{     //inherits from Bug
 
 public:
-    Crawler(int id, int x, int y, Direction direction, int size);
+    Crawler(int id, int x, int y, Direction direction, int size, bool alive);
 
     void move() override; // only the function prototype
 

@@ -6,7 +6,14 @@
 #include <iostream>
 using namespace std;
 
-Hopper::Hopper(int id, int x, int y, Direction direction, int size,  int hopLength) {
+Hopper::Hopper(int id, int x, int y, Direction direction, int size,  int hopLength, bool alive) {
+    this->id = id;
+    this->position.first = x;
+    this->position.second = y;
+    this->direction = direction;
+    this->size = size;
+    this->hopLength = hopLength;
+    this->alive = alive;
 }
 
 // need to check if wayIsBlocked() everytime a bug moves - if it is then move to a random cell
