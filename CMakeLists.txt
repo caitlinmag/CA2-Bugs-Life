@@ -11,4 +11,6 @@ add_executable(CA2_Bugs_Life main.cpp
         Hopper.cpp
         Hopper.h
         Board.h
-        Board.cpp)
+        Board.cpp
+        Directions.h
+        Directions.h)

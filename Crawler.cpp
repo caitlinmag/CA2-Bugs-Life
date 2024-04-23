@@ -1,11 +1,12 @@
 //
 // Created by caitl on 06/04/2024.
 //
-
 #include "Crawler.h"
+#include "Board.h"
 #include <iostream>
 #include <random>
 #include <chrono>
+#include <vector>
 #include <algorithm>
 
 using namespace std;
@@ -26,16 +27,10 @@ void Crawler::move() {        //implementation of Crawler move()
 
     this->id = 4;
 
-    // crawler move rules:
-    //TODO: first get the current direction of crawler bug
-
-
-    //TODO: if statement : check if at edge of board - if true then means they cant move in current direction
+    //check if bug is at the edge of board - if true then means they cant move in current direction
     if (isWayBlocked()) {
         cout << "bugs way is blocked.";
-        // call the setRandomDirection function
-
-        // setting a new direction for the bug
+        setNewDirection();      // call the setRandomDirection method
 
     } else {
         //TODO: if isWayBlocked() = false, then move by 1 unit in current direction
@@ -48,12 +43,10 @@ void Crawler::move() {        //implementation of Crawler move()
         if (this->direction == Direction::North) {
             this->position.second =
                     y - 1;           // if the bug is going north they need to go back the ways - so decrement by 1
-            setNewDirection();
         }
 
         if (this->direction == Direction::South) {
             this->position.second = y + 1;          // if bug is going south they are going forward - so increment by 1
-            setNewDirection();
         }
 
         if (this->direction == Direction::East) {
@@ -67,39 +60,72 @@ void Crawler::move() {        //implementation of Crawler move()
         cout << "bugs way is not blocked." << endl;
     }
 
-    //TODO: so now we need to get a new direction - if isWayBlocked() is true then setting new direction at random
-    // for loop - iterate through - repeating until bug can move forward
-
 
     //TODO: get the new position
-    // add to crawlers path history
+
+    //TODO: add to crawlers path history
+    // then could push the new path to the vector
 }
 
 // TODO: could make a function instead, to set a random direction
 void Crawler::setNewDirection() {
     cout << "setting a new direction using random" << endl;
 
-    std::vector<int> directionNums = {1, 2, 3, 4};
-    // get random number
-
-    unsigned seed = chrono::system_clock::now().time_since_epoch().count();
-
-    shuffle(directionNums.begin(), directionNums.end(), default_random_engine(seed));
-
-    cout << "random directions " << endl;
-    for (int &x: directionNums)
-        cout << ' ' << x;
-    cout << '\n';
+//    std::vector<int> directionNums = {1, 2, 3, 4};      // 1,2,3,4 are the numbers used for directions
+//
+//    unsigned seed = chrono::system_clock::now().time_since_epoch().count();
+//
+//    shuffle(directionNums.begin(), directionNums.end(), default_random_engine(seed));
+//
+//    cout << "random directions " << endl;
+//    for (int &x: directionNums)         // iterate through the vector - now in random order
+//        cout << ' ' << x;
+//    cout << '\n';
 
     // use a switch statement
+
     // then if the random number is for example 1 then set new direction to North
 
     // could also try this way of using random for directions if the other way doesn't work
     // https://www.baeldung.com/java-enum-random-value#:~:text=Random%20Enum%20Value%20with%20Generics&text=We%20could%20generate%20a%20random,randomEnum()%3B
+
+    /*
+     *  From StackOverflow:
+     *  https://stackoverflow.com/questions/30540078/using-c-rand-to-get-random-directions-up-down-left-right-always-getting#:~:text=company%20blog-,Using%20C%2B%2B%20rand()%20to%20get%20random%20directions%20(up%2Fdown,%2Fright)%20%2D%20always%20getting%20up&text=It%20randomly%20gets%20a%20number,always%20sets%20the%20pieces%20vertically
+     */
+
+    int randNum = rand();
+    int x = (randNum % 4) + 1;      // getting a random number between 1 and 4
+
+    // using a switch statement to check what number x is , then assigning a direction to the number
+    switch (x) {
+        case 1:
+            direction = Direction::North;
+            cout << "New direction is North" << endl;
+            isWayBlocked();         // still need to check if way is blocked in the new direction until the bug can move
+            break;
+        case 2:
+            direction = Direction::East;
+            cout << "New direction is east" << endl;
+            isWayBlocked();
+            break;
+        case 3:
+            direction = Direction::South;
+            cout << "New direction is south" << endl;
+            isWayBlocked();
+            break;
+        case 4:
+            direction = Direction::West;
+            cout << "New direction is west" << endl;
+            isWayBlocked();
+            break;
+    }
+
 }
 
 // TODO: make a function to display and record the new path history
-// TODO: need to fix it to read in the name of the direction not the number
+
+// TODO: need to fix print to read in the direction not the number
 // printing the fields of a Crawler bug
 void Crawler::print() const {
     cout << this->id << " Crawler " << "(" << this->position.first << "," << this->position.second << ") " << this->size

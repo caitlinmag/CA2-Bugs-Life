@@ -129,13 +129,14 @@ void Board::findBugById() {
     for (auto iter = bug_vector.begin(); iter != bug_vector.end(); iter++) {      // iterate through the bug_vector to find the bugID
         Bug* b = *iter;         // dereference the iter and assign to pointer to bug object b
         if(b->getBugId() == inputId){    // checking if the bugId is equal to the input id from the user
-            cout << "Bug " << inputId << " has been found." << endl;      // bug is found
+            cout << "Bug " << inputId << " has been found. \n" << endl;      // bug is found
+            cout << "* BUG DETAILS *" << endl;
             b->print();         // printing the bug details
             bugFound = true;    // set to true
         }
     }
 
-    // outside of the for loop - checking if the input bug id  has NOT been found
+    // outside of the for loop - checking if the input bug id has NOT been found
     // then output the message - inside the for loop it will repeat this message for every bug
     if(!bugFound){
         cout << "Bug " << inputId << " has not been found." << endl;      // bug is found
@@ -148,3 +149,5 @@ void Board::tapBugBrd(){
         bugPtr->move();             // use this for menu option 4 - tap the board bug
     }
 }
+
+

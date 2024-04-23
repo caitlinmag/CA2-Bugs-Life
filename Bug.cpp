@@ -15,10 +15,34 @@ int Bug::getBugId() const{     // creating a getter for bugId to use in the find
     return this->id;
 }
 
-//TODO: implement logic for isWayBlocked()
+int Bug::getDirection() const {
+    switch(direction){
+        case 1:
+            return Direction::North;
+        case 2:
+            return Direction::East;
+        case 3:
+            return Direction::South;
+        case 4:
+            return Direction::West;
+    }
+}
+
+int Bug::setDirection() const {
+    switch (direction) {
+        case 1:
+            cout << "North" << endl;
+        case 2:
+            cout << "East" << endl;
+        case 3:
+            cout << "South" << endl;
+        case 4:
+            cout << "West" << endl;
+    }
+}
+
 // the bug board is 10 x 10 so max is so min cell is 0 and max is 9
 bool Bug::isWayBlocked() {
-
     int x = this->position.first;
     int y = this->position.second;
 

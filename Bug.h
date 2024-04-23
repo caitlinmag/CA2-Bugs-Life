@@ -35,6 +35,10 @@ public:
 
     int getBugId() const;
 
+    int getDirection() const;
+
+    int setDirection() const;
+
     // Used to move a bug from current position to new position
     // this will be based on rules for the bug type
     // must use a pure virtual function (no implementation for Bug base class)
@@ -44,7 +48,7 @@ public:
     // check if bug is at the edge of board
     // AND if bug is facing in edge direction = way is blocked
     // method used by move() function
-    bool isWayBlocked() ;
+    bool isWayBlocked();
 
     virtual void print() const = 0;
 };

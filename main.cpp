@@ -86,12 +86,6 @@ int main() {
     }
     fin.close();
 
-//    for(Bug* ptr: bug_vector){
-//        delete ptr;                 // free the memory
-//    }
-//
-//    bug_vector.clear();             // clear the contents of the bug_vector
-
     return 0;
 
 //    for(Bug* ptr: bug_vector){
