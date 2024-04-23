@@ -21,6 +21,7 @@ void Hopper::move() {      //implementation of Hopper move()
     cout << "Moving a hopper bug " << endl;
 }
 
+// this->setDirection()
 // TODO: need to get in the direction and change it to the corresponding enum
 void Hopper::print () const {
     cout << this->id << " Hopper " << "(" << this->position.first << "," << this->position.second << ") " << this->size << " " << this->direction << " " << this->hopLength << " " << this->alive << endl;
