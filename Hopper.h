@@ -11,7 +11,7 @@
 
 class Hopper : public Bug {
 private:
-    int hopLength{};              // distance hopper bug can hop (2-4 units)
+    int hopLength;             // distance hopper bug can hop (2-4 units)
 
 public:
     // moves by hopLength units in current direction

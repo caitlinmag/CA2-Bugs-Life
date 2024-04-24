@@ -16,7 +16,7 @@ using namespace std;
 
 Board::Board(){} // board constructor
 
-// take in reference to file input and bugs vector
+// take in reference to file input and list of bug paths
 void Board::fillBugsVector(ifstream &fin) {
     /**
      *  Assign variables from reading in the text file
@@ -49,18 +49,15 @@ void Board::fillBugsVector(ifstream &fin) {
 
         bugPtr = nullptr;
 
-        while (getline(s, newString,
-                       ';')) {   // taking in the stringstream, new string and semicolon - split the string when a ";" is found
+        while (getline(s, newString, ';')) {   // taking in the stringstream, new string and semicolon
+            // - split the string when a ";" is found
             bugWithoutDelimiter.push_back(newString);      // push the new string into the vector
         }
 
-        if (bugWithoutDelimiter.size() >=
-            6) {         // size >= 6 as a bug would have no more than 6 fields (crawler = 5 , hopper = 6)
+        if (bugWithoutDelimiter.size() >=6) {         // size >= 6 as a bug would have no more than 6 fields (crawler = 5 , hopper = 6)
             string bugType = bugWithoutDelimiter[0];
-            int id = stoi(
-                    bugWithoutDelimiter[1]);     // using the method stoi() to convert the strings to ints and storing them in bug field variables
-            int x = stoi(
-                    bugWithoutDelimiter[2]);      // getting the bug fields based on the position in the bugWithoutDelimiter vector
+            int id = stoi(bugWithoutDelimiter[1]);     // using the method stoi() to convert the strings to ints and storing them in bug field variables
+            int x = stoi(bugWithoutDelimiter[2]);      // getting the bug fields based on the position in the bugWithoutDelimiter vector
             int y = stoi(bugWithoutDelimiter[3]);
             int direction = stoi(bugWithoutDelimiter[4]);
             int size = stoi(bugWithoutDelimiter[5]);
@@ -98,14 +95,6 @@ void Board::fillBugsVector(ifstream &fin) {
 
         // add the crawler and hopper bugs to the bug vector
         bug_vector.push_back(bugPtr);
-    }
-    // print bug vector
-    cout << " vector of bugs: " << endl;
-
-    vector<Bug *>::size_type size = bug_vector.size();
-
-    for (int i = 0; i < size; i++) {
-        cout << bug_vector.at(i) << endl;
     }
 }
 
@@ -145,9 +134,20 @@ void Board::findBugById() {
 
 void Board::tapBugBrd(){
     cout << "**************    TAP THE BUG BOARD    **************" << endl;
-    for(Bug* bugPtr: bug_vector){   // call the move methods for crawler and hopper bugs
-        bugPtr->move();             // use this for menu option 4 - tap the board bug
+
+    for (auto iter = bug_vector.begin(); iter != bug_vector.end(); iter++) {
+        Bug* b = *iter;
+        b->move();
     }
+//    for(Bug* bugPtr: bug_vector){   // call the move methods for crawler and hopper bugs
+//        bugPtr->move();             // use this for menu option 4 - tap the board bug
+//    }
+}
+
+void Board::displayLifeHistory() {
+    cout <<"**************    DISPLAY BUG LIFE HISTORY    **************" << endl;
+
+
 }
 
 
