@@ -8,7 +8,6 @@
 #include <utility>
 #include <list>
 
-//using namespace std; //take this out not meant to use   // DL correct, use in .cpp only, but then you need to use std:: everywhere below
 enum Direction {             //direction the bug is facing
     North = 1,
     East = 2,
@@ -51,6 +50,7 @@ public:
     bool isWayBlocked();
 
     virtual void print() const = 0;
+    virtual void printHistory() const = 0;
 };
 
 #endif //CA2_BUGS_LIFE_BUG_H

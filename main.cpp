@@ -7,6 +7,7 @@
 #include "Board.h"
 #include <string>
 #include <sstream>
+#include <list>
 
 using namespace std;
 
@@ -14,7 +15,6 @@ using namespace std;
 
 int main() {
     Board brd;                                    // make a board object
-//    vector<Bug *> vector_ref;        // declare vector of pointers to Bug objects - type vector of pointers to Bug objects
 
     // read data from text file "bugs.txt"
     ifstream fin("bugs.txt");         //create input file stream to the text file "bugs.txt"
@@ -42,8 +42,7 @@ int main() {
                 case 1: {
                     // load data from the file and fill the vector
                     brd.fillBugsVector(fin);
-
-//                    fillBugsVector(fin, vector_ref);               //storing each bug being read in to the text file
+            //storing each bug being read in to the text file
                     break;
                 }
                 case 2: {
@@ -64,6 +63,7 @@ int main() {
                 }
                 case 5: {
                     //display life history of all bugs (path)
+                    brd.displayLifeHistory();
                     break;
                 }
                 case 6: {
@@ -76,6 +76,7 @@ int main() {
                 }
                 case 8: {
                     //write life history of all bugs to file before exit
+                    // create a new text file for this
                 }
             }
 

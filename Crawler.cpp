@@ -18,7 +18,7 @@ Crawler::Crawler(int id, int x, int y, Direction direction, int size, bool alive
     this->direction = direction;
     this->size = size;
     this->alive = alive;
-}; // bool alive has been taken out - was getting an error with it in constructor
+};
 
 //TODO: implement logic for when a crawler bug moves
 // need to check if wayIsBlocked() everytime a bug moves - if it is then move to a random cell
@@ -28,42 +28,41 @@ void Crawler::move() {        //implementation of Crawler move()
     this->id = 4;
 
     //check if bug is at the edge of board - if true then means they cant move in current direction
-    if (isWayBlocked()) {
+    while (isWayBlocked()) {  // loop until we have a possible way to go
         cout << "bugs way is blocked.";
         setNewDirection();      // call the setRandomDirection method
+    }
 
-    } else {
-        //TODO: if isWayBlocked() = false, then move by 1 unit in current direction
-        int x = this->position.first;       // row
-        int y = this->position.second;      // column
+    //TODO: if isWayBlocked() == false, then move by 1 unit in current direction
+    int x = this->position.first;       // row
+    int y = this->position.second;      // column
 
 //        this->position.first -= 1;
 
-        // checking which direction the bug is CURRENTLY facing - then moving 1 unit in that direction
-        if (this->direction == Direction::North) {
-            this->position.second =
-                    y - 1;           // if the bug is going north they need to go back the ways - so decrement by 1
-        }
-
-        if (this->direction == Direction::South) {
-            this->position.second = y + 1;          // if bug is going south they are going forward - so increment by 1
-        }
-
-        if (this->direction == Direction::East) {
-            this->position.first = x + 1;           // if bug is going east they are going right - so increment by 1
-        }
-
-        if (this->direction == Direction::West) {
-            this->position.first = x - 1;          // if bug is going west they are going left - so decrement by 1
-        }
-
-        cout << "bugs way is not blocked." << endl;
+    // checking which direction the bug is CURRENTLY facing - then moving 1 unit in that direction
+    if (this->direction == Direction::North) {
+        this->position.first = x - 1;           // if the bug is going north they need to go back the ways - so decrement by 1
     }
 
+    if (this->direction == Direction::South) {
+        this->position.first = x + 1;          // if bug is going south they are going forward - so increment by 1
+    }
 
-    //TODO: get the new position
+    if (this->direction == Direction::East) {
+        this->position.second = y + 1;           // if bug is going east they are going right - so increment by 1
+    }
+
+    if (this->direction == Direction::West) {
+        this->position.second = y - 1;          // if bug is going west they are going left - so decrement by 1
+    }
+
+    cout << "bugs way is not blocked." << endl;
+
 
     //TODO: add to crawlers path history
+    // remember to add current position of every new bug to the path (once only)
+    // after move, new positions will be added to path here
+    this->path.push_back(position);
     // then could push the new path to the vector
 }
 
@@ -102,22 +101,18 @@ void Crawler::setNewDirection() {
         case 1:
             direction = Direction::North;
             cout << "New direction is North" << endl;
-            isWayBlocked();         // still need to check if way is blocked in the new direction until the bug can move
             break;
         case 2:
             direction = Direction::East;
             cout << "New direction is east" << endl;
-            isWayBlocked();
             break;
         case 3:
             direction = Direction::South;
             cout << "New direction is south" << endl;
-            isWayBlocked();
             break;
         case 4:
             direction = Direction::West;
             cout << "New direction is west" << endl;
-            isWayBlocked();
             break;
     }
 
@@ -132,3 +127,10 @@ void Crawler::print() const {
          << " " << this->direction << " " << this->alive << endl;
 }
 
+void Crawler::printHistory() const {
+    for (auto listIter = path.begin(); listIter != path.end(); listIter++){
+
+    }
+
+    cout << this->id << " Crawler Path:" << "(" << ")" << endl;
+}

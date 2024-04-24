@@ -46,6 +46,10 @@ bool Bug::isWayBlocked() {
     int x = this->position.first;
     int y = this->position.second;
 
+    this->path.push_back(position); // getting current position
+
+
+
     // (x,y) x is row , y is column
     // north and south will be y
     // east and west will be x
@@ -84,3 +88,4 @@ void Bug::move() {}
 
 void Bug::print() const {}
 
+void Bug::printHistory() const {}

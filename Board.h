@@ -7,10 +7,12 @@
 
 #include "Bug.h"
 #include <vector>
-#include <fstream> //to access file input and output
+#include <fstream>
+#include <list>
 
 class Board {
 protected:
+    // declare vector of pointers to Bug objects - type vector of pointers to Bug objects
     std::vector<Bug *> bug_vector;  // make the bug_vector private to the board class
 
 public:
@@ -23,6 +25,8 @@ public:
     void findBugById();
 
     void tapBugBrd();
+
+    void displayLifeHistory();
 };
 
 #endif //CA2_BUGS_LIFE_BOARD_H

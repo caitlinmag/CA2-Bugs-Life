@@ -16,6 +16,7 @@ public:
     void move() override; // only the function prototype
 
     void print() const override; // displaying fields of a Crawler Bug
+    void printHistory() const override;
     void setNewDirection();
 };
 #endif //CA2_BUGS_LIFE_CRAWLER_H
