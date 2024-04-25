@@ -37,6 +37,8 @@ public:
 
     int getBugId() const;
 
+    bool getAlive() const;
+
     static std::string directionToString(Direction direction) ;
 
     // Used to move a bug from current position to new position
@@ -52,7 +54,6 @@ public:
     virtual void setRandomDirection() = 0;
     virtual void print() const = 0;
     virtual void printHistory() const = 0;
-
 };
 
 #endif //CA2_BUGS_LIFE_BUG_H

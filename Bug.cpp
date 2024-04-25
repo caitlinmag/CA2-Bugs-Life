@@ -28,6 +28,14 @@ string Bug::directionToString(Direction direction) {
         }
 }
 
+bool Bug::getAlive() const {
+    if(alive){
+        return "Alive";
+    }else{
+        return "Dead";
+    }
+}
+
 // the bug board is 10 x 10 so max is so min cell is 0 and max is 9
 bool Bug::isWayBlocked() {
     int x = this->position.first;

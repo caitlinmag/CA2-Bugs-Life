@@ -18,10 +18,8 @@ using namespace std;
 Board::Board(){} // board constructor
 
 // fill the board - 10 x 10
+// maybe using a list of pairs similar to the path starting with (0,0) and max is (9,9)
 
-
-
-// take in reference to file input and list of bug paths
 void Board::fillBugsVector(ifstream &fin) {
     /**
      *  Assign variables from reading in the text file
@@ -68,7 +66,7 @@ void Board::fillBugsVector(ifstream &fin) {
             int size = stoi(bugWithoutDelimiter[5]);
 
             if (bugWithoutDelimiter[0] == "C") {           // checking the bug type - Crawler
-                cout << "this is a crawler bug" << endl;   // TODO: before upload take out "this is a crawler bug" etc
+                cout << "this is a crawler bug" << endl;   // TODO: before upload take out "this is a crawler bug" etc - maybe just output the entire txt file line by line
                 cout << "bug type " << bugType << endl;
                 cout << "bug id " << id << endl;
                 cout << "x " << x << endl;
@@ -151,6 +149,12 @@ void Board::tapBugBrd(){
 
 void Board::displayLifeHistory() {
     cout <<"**************    DISPLAY BUG LIFE HISTORY    **************" << endl;
+    for (auto iter = bug_vector.begin(); iter != bug_vector.end(); iter++) {
+        Bug* b = *iter;
+        b->printHistory();
+        cout << endl;
+    }
+
 }
 
 

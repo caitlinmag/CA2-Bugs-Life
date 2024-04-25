@@ -63,7 +63,7 @@ void Hopper::move() {      //implementation of Hopper move()
         case West:
             // checking if y minus the hopLength is greater than 0 - then the bug can move the full hopLength
             if(y - hopLength >=0){
-                this->position.second = y - 1;    // if bug is going west they are going left one column - so decrement by hopLength
+                this->position.second = y - hopLength;    // if bug is going west they are going left one column - so decrement by hopLength
             }else{
                 // can't move the full hopLength so set y to 0 - the edge
                 this->position.second = 0;
@@ -115,9 +115,11 @@ void Hopper::print() const {
 }
 
 void Hopper::printHistory() const {
-    for (auto listIter = path.begin(); listIter != path.end(); listIter++) {
+    cout << this->id << " Hopper Path: ";
 
+    for (auto listIter = path.begin(); listIter != path.end(); listIter++){
+        cout << "(" << listIter->first << "," << listIter->second << ")" << ",";
     }
 
-    cout << this->id << " Hopper Path:" << "(" << ")" << endl;
+
 }
