@@ -100,14 +100,15 @@ void Crawler::setRandomDirection() {
 // printing the fields of a Crawler bug
 void Crawler::print() const {
     cout << this->id << " Crawler " << "(" << this->position.first << "," << this->position.second << ") " << this->size
-         << " " << this->direction << " " << this->alive << endl;
+         << " " << directionToString(this->direction) << " " << this->alive << endl;
 }
 
 void Crawler::printHistory() const {
     for (auto listIter = path.begin(); listIter != path.end(); listIter++){
 
+
     }
 
-    cout << this->id << " Crawler Path:" << "(" << this->position.first << "," << this->position.second << ")" << endl;
+    cout << this->id << " Crawler Path:" << "(" << this->position.first << "," << this->position.second << ")" <<  endl;
 }
 

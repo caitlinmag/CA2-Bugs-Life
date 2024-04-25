@@ -111,7 +111,7 @@ void Hopper::setRandomDirection() {
 // TODO: need to get in the direction and change it to the corresponding enum
 void Hopper::print() const {
     cout << this->id << " Hopper " << "(" << this->position.first << "," << this->position.second << ") " << this->size
-         << " " << this->direction << " " << this->hopLength << " " << this->alive << endl;
+         << " " << directionToString(this->direction) << " " << this->hopLength << " " << this->alive << endl;
 }
 
 void Hopper::printHistory() const {
