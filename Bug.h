@@ -7,6 +7,7 @@
 
 #include <utility>
 #include <list>
+#include <string>
 
 enum Direction {             //direction the bug is facing
     North = 1,
@@ -14,6 +15,8 @@ enum Direction {             //direction the bug is facing
     South = 3,
     West = 4
 };
+
+
 
 class Bug {          //abstract base class Bug
 protected:
@@ -34,9 +37,7 @@ public:
 
     int getBugId() const;
 
-    int getDirection() const;
-
-    int setDirection() const;
+    static std::string directionToString(Direction direction) ;
 
     // Used to move a bug from current position to new position
     // this will be based on rules for the bug type
@@ -51,6 +52,7 @@ public:
     virtual void setRandomDirection() = 0;
     virtual void print() const = 0;
     virtual void printHistory() const = 0;
+
 };
 
 #endif //CA2_BUGS_LIFE_BUG_H
