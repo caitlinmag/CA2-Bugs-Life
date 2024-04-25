@@ -42,7 +42,6 @@ int main() {
                 case 1: {
                     // load data from the file and fill the vector
                     brd.fillBugsVector(fin);
-            //storing each bug being read in to the text file
                     break;
                 }
                 case 2: {

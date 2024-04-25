@@ -24,7 +24,9 @@ public:
 
 // function prototype
     void move() override;
+    void setRandomDirection() override;
     void print() const override ;
+    void printHistory() const override;
 };
 
 #endif //CA2_BUGS_LIFE_HOPPER_H

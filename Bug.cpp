@@ -46,9 +46,8 @@ bool Bug::isWayBlocked() {
     int x = this->position.first;
     int y = this->position.second;
 
-    this->path.push_back(position); // getting current position
-
-
+    // getting current positions of bugs and adding to the path list
+    this->path.push_back(position);
 
     // (x,y) x is row , y is column
     // north and south will be y
@@ -86,6 +85,13 @@ bool Bug::isWayBlocked() {
 
 void Bug::move() {}
 
+void Bug::setRandomDirection()  {
+
+
+
+}
+
 void Bug::print() const {}
 
 void Bug::printHistory() const {}
+
