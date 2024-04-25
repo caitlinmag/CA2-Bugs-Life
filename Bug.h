@@ -48,7 +48,7 @@ public:
     // AND if bug is facing in edge direction = way is blocked
     // method used by move() function
     bool isWayBlocked();
-
+    virtual void setRandomDirection() = 0;
     virtual void print() const = 0;
     virtual void printHistory() const = 0;
 };

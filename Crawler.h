@@ -17,7 +17,7 @@ public:
 
     void print() const override; // displaying fields of a Crawler Bug
     void printHistory() const override;
-    void setNewDirection();
+    void setRandomDirection() override;
 };
 #endif //CA2_BUGS_LIFE_CRAWLER_H
 

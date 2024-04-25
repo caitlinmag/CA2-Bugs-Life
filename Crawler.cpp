@@ -8,7 +8,7 @@
 #include <chrono>
 #include <vector>
 #include <algorithm>
-
+#include <list>
 using namespace std;
 
 Crawler::Crawler(int id, int x, int y, Direction direction, int size, bool alive) {
@@ -20,74 +20,51 @@ Crawler::Crawler(int id, int x, int y, Direction direction, int size, bool alive
     this->alive = alive;
 };
 
-//TODO: implement logic for when a crawler bug moves
-// need to check if wayIsBlocked() everytime a bug moves - if it is then move to a random cell
-void Crawler::move() {        //implementation of Crawler move()
+//implementation of Crawler move()
+void Crawler::move() {
     cout << "Moving a crawler bug " << endl;
 
-    this->id = 4;
-
-    //check if bug is at the edge of board - if true then means they cant move in current direction
+    // check if bug is at the edge of board - if true then means they cant move in current direction
     while (isWayBlocked()) {  // loop until we have a possible way to go
-        cout << "bugs way is blocked.";
-        setNewDirection();      // call the setRandomDirection method
+        setRandomDirection();      // call the setNewDirection() method to set a new direction at random
     }
 
-    //TODO: if isWayBlocked() == false, then move by 1 unit in current direction
+    // Bugs way is not blocked - so move 1 unit in current direction
     int x = this->position.first;       // row
     int y = this->position.second;      // column
 
-//        this->position.first -= 1;
-
     // checking which direction the bug is CURRENTLY facing - then moving 1 unit in that direction
-    if (this->direction == Direction::North) {
-        this->position.first = x - 1;           // if the bug is going north they need to go back the ways - so decrement by 1
+    // also need to ensure cells are only between 0 and 9 - the numbers can't go above 9
+    switch(this->direction){
+        case North:
+            if(x >= 0){
+                this->position.first = x - 1;    // if the bug is going north they need to go up one row - so decrement by 1
+            }
+        case South:
+            if(x <9){
+                this->position.first = x + 1;    // if bug is going south they are going forward - so increment by 1
+            }
+            break;
+        case East:
+            if(y < 9){
+                this->position.second = y + 1;   // if bug is going east they are going right - so increment by 1
+            }
+            break;
+        case West:
+            if(y > 0){
+                this->position.second = y - 1;    // if bug is going west they are going left - so decrement by 1
+            }
+            break;
     }
-
-    if (this->direction == Direction::South) {
-        this->position.first = x + 1;          // if bug is going south they are going forward - so increment by 1
-    }
-
-    if (this->direction == Direction::East) {
-        this->position.second = y + 1;           // if bug is going east they are going right - so increment by 1
-    }
-
-    if (this->direction == Direction::West) {
-        this->position.second = y - 1;          // if bug is going west they are going left - so decrement by 1
-    }
-
-    cout << "bugs way is not blocked." << endl;
-
 
     //TODO: add to crawlers path history
     // remember to add current position of every new bug to the path (once only)
     // after move, new positions will be added to path here
     this->path.push_back(position);
-    // then could push the new path to the vector
 }
 
-// TODO: could make a function instead, to set a random direction
-void Crawler::setNewDirection() {
+void Crawler::setRandomDirection() {
     cout << "setting a new direction using random" << endl;
-
-//    std::vector<int> directionNums = {1, 2, 3, 4};      // 1,2,3,4 are the numbers used for directions
-//
-//    unsigned seed = chrono::system_clock::now().time_since_epoch().count();
-//
-//    shuffle(directionNums.begin(), directionNums.end(), default_random_engine(seed));
-//
-//    cout << "random directions " << endl;
-//    for (int &x: directionNums)         // iterate through the vector - now in random order
-//        cout << ' ' << x;
-//    cout << '\n';
-
-    // use a switch statement
-
-    // then if the random number is for example 1 then set new direction to North
-
-    // could also try this way of using random for directions if the other way doesn't work
-    // https://www.baeldung.com/java-enum-random-value#:~:text=Random%20Enum%20Value%20with%20Generics&text=We%20could%20generate%20a%20random,randomEnum()%3B
-
     /*
      *  From StackOverflow:
      *  https://stackoverflow.com/questions/30540078/using-c-rand-to-get-random-directions-up-down-left-right-always-getting#:~:text=company%20blog-,Using%20C%2B%2B%20rand()%20to%20get%20random%20directions%20(up%2Fdown,%2Fright)%20%2D%20always%20getting%20up&text=It%20randomly%20gets%20a%20number,always%20sets%20the%20pieces%20vertically
@@ -115,7 +92,6 @@ void Crawler::setNewDirection() {
             cout << "New direction is west" << endl;
             break;
     }
-
 }
 
 // TODO: make a function to display and record the new path history
@@ -132,5 +108,6 @@ void Crawler::printHistory() const {
 
     }
 
-    cout << this->id << " Crawler Path:" << "(" << ")" << endl;
+    cout << this->id << " Crawler Path:" << "(" << this->position.first << "," << this->position.second << ")" << endl;
 }
+

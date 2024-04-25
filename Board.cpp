@@ -11,10 +11,15 @@
 #include "Board.h"
 #include <string>
 #include <sstream>
+#include <list>
 
 using namespace std;
 
 Board::Board(){} // board constructor
+
+// fill the board - 10 x 10
+
+
 
 // take in reference to file input and list of bug paths
 void Board::fillBugsVector(ifstream &fin) {
@@ -146,8 +151,6 @@ void Board::tapBugBrd(){
 
 void Board::displayLifeHistory() {
     cout <<"**************    DISPLAY BUG LIFE HISTORY    **************" << endl;
-
-
 }
 
 
