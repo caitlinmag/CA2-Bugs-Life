@@ -100,15 +100,24 @@ void Crawler::setRandomDirection() {
 // printing the fields of a Crawler bug
 void Crawler::print() const {
     cout << this->id << " Crawler " << "(" << this->position.first << "," << this->position.second << ") " << this->size
-         << " " << directionToString(this->direction) << " " << this->alive << endl;
+         << " " << directionToString(this->direction) << " " << this->getAlive() << endl;
 }
 
+// TODO: put each bug on a new line
+//check if its at the end of list and output comma if not don't
 void Crawler::printHistory() const {
+    cout << this->id << " Crawler Path: ";
+
     for (auto listIter = path.begin(); listIter != path.end(); listIter++){
-
-
+        cout << "(" << listIter->first << "," << listIter->second << ")" << ",";
     }
 
-    cout << this->id << " Crawler Path:" << "(" << this->position.first << "," << this->position.second << ")" <<  endl;
+    // checking if bug has been eaten
+
+    // display who ate the bug
+
+    // otherwise display "Alive!"
+
+
 }
 
