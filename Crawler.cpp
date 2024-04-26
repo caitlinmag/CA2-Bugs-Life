@@ -24,6 +24,12 @@ Crawler::Crawler(int id, int x, int y, Direction direction, int size, bool alive
 void Crawler::move() {
     cout << "Moving a crawler bug " << endl;
 
+    // check if the path is empty then add position
+    // without this - current bug positions were displaying twice before move
+    if(this->path.empty()){
+        this->path.push_back(position);
+    }
+
     // check if bug is at the edge of board - if true then means they cant move in current direction
     while (isWayBlocked()) {  // loop until we have a possible way to go
         setRandomDirection();      // call the setNewDirection() method to set a new direction at random
@@ -57,9 +63,7 @@ void Crawler::move() {
             break;
     }
 
-    //TODO: add to crawlers path history
-    // remember to add current position of every new bug to the path (once only)
-    // after move, new positions will be added to path here
+    // add new position to the path, after bug has moved
     this->path.push_back(position);
 }
 
@@ -94,17 +98,14 @@ void Crawler::setRandomDirection() {
     }
 }
 
-// TODO: make a function to display and record the new path history
 
-// TODO: need to fix print to read in the direction not the number
 // printing the fields of a Crawler bug
 void Crawler::print() const {
     cout << this->id << " Crawler " << "(" << this->position.first << "," << this->position.second << ") " << this->size
          << " " << directionToString(this->direction) << " " << this->getAlive() << endl;
 }
 
-// TODO: put each bug on a new line
-//check if its at the end of list and output comma if not don't
+// check if its at the end of list and output comma if not don't
 void Crawler::printHistory() const {
     cout << this->id << " Crawler Path: ";
 
@@ -117,7 +118,5 @@ void Crawler::printHistory() const {
     // display who ate the bug
 
     // otherwise display "Alive!"
-
-
 }
 
