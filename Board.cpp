@@ -15,7 +15,7 @@
 
 using namespace std;
 
-Board::Board(){} // board constructor
+Board::Board() {} // board constructor
 
 // fill the board - 10 x 10
 // maybe using a list of pairs similar to the path starting with (0,0) and max is (9,9)
@@ -57,16 +57,20 @@ void Board::fillBugsVector(ifstream &fin) {
             bugWithoutDelimiter.push_back(newString);      // push the new string into the vector
         }
 
-        if (bugWithoutDelimiter.size() >=6) {         // size >= 6 as a bug would have no more than 6 fields (crawler = 5 , hopper = 6)
+        if (bugWithoutDelimiter.size() >=
+            6) {         // size >= 6 as a bug would have no more than 6 fields (crawler = 5 , hopper = 6)
             string bugType = bugWithoutDelimiter[0];
-            int id = stoi(bugWithoutDelimiter[1]);     // using the method stoi() to convert the strings to ints and storing them in bug field variables
-            int x = stoi(bugWithoutDelimiter[2]);      // getting the bug fields based on the position in the bugWithoutDelimiter vector
+            int id = stoi(
+                    bugWithoutDelimiter[1]);     // using the method stoi() to convert the strings to ints and storing them in bug field variables
+            int x = stoi(
+                    bugWithoutDelimiter[2]);      // getting the bug fields based on the position in the bugWithoutDelimiter vector
             int y = stoi(bugWithoutDelimiter[3]);
             int direction = stoi(bugWithoutDelimiter[4]);
             int size = stoi(bugWithoutDelimiter[5]);
 
             if (bugWithoutDelimiter[0] == "C") {           // checking the bug type - Crawler
-                cout << "this is a crawler bug" << endl;   // TODO: before upload take out "this is a crawler bug" etc - maybe just output the entire txt file line by line
+                cout << "this is a crawler bug"
+                     << endl;   // TODO: before upload take out "this is a crawler bug" etc - maybe just output the entire txt file line by line
                 cout << "bug type " << bugType << endl;
                 cout << "bug id " << id << endl;
                 cout << "x " << x << endl;
@@ -105,7 +109,7 @@ void Board::displayAllBugs() {
     cout << "**************    DISPLAYING ALL BUGS    **************" << endl;
     // iterate through the bugs vector and call the print method
     for (auto iter = bug_vector.begin(); iter != bug_vector.end(); iter++) {
-        Bug* b = *iter;     // dereference the iter and assign to pointer to bug object b
+        Bug *b = *iter;     // dereference the iter and assign to pointer to bug object b
         b->print();         // printing all bugs - separate crawler and hopper print methods
     }
 }
@@ -118,9 +122,10 @@ void Board::findBugById() {
     cout << "Please Enter the Bug ID you would like to find: " << endl;       // ask the user for a bug ID
     cin >> inputId;
 
-    for (auto iter = bug_vector.begin(); iter != bug_vector.end(); iter++) {      // iterate through the bug_vector to find the bugID
-        Bug* b = *iter;         // dereference the iter and assign to pointer to bug object b
-        if(b->getBugId() == inputId){    // checking if the bugId is equal to the input id from the user
+    for (auto iter = bug_vector.begin();
+         iter != bug_vector.end(); iter++) {      // iterate through the bug_vector to find the bugID
+        Bug *b = *iter;         // dereference the iter and assign to pointer to bug object b
+        if (b->getBugId() == inputId) {    // checking if the bugId is equal to the input id from the user
             cout << "Bug " << inputId << " has been found. \n" << endl;      // bug is found
             cout << "* BUG DETAILS *" << endl;
             b->print();         // printing the bug details
@@ -130,16 +135,16 @@ void Board::findBugById() {
 
     // outside of the for loop - checking if the input bug id has NOT been found
     // then output the message - inside the for loop it will repeat this message for every bug
-    if(!bugFound){
+    if (!bugFound) {
         cout << "Bug " << inputId << " has not been found." << endl;      // bug is found
     }
 }
 
-void Board::tapBugBrd(){
+void Board::tapBugBrd() {
     cout << "**************    TAP THE BUG BOARD    **************" << endl;
 
     for (auto iter = bug_vector.begin(); iter != bug_vector.end(); iter++) {
-        Bug* b = *iter;
+        Bug *b = *iter;
         b->move();
     }
 //    for(Bug* bugPtr: bug_vector){   // call the move methods for crawler and hopper bugs
@@ -148,23 +153,29 @@ void Board::tapBugBrd(){
 }
 
 void Board::displayLifeHistory() {
-    cout <<"**************    DISPLAY BUG LIFE HISTORY    **************" << endl;
+    cout << "**************    DISPLAY BUG LIFE HISTORY    **************" << endl;
     for (auto iter = bug_vector.begin(); iter != bug_vector.end(); iter++) {
-        Bug* b = *iter;
+        Bug *b = *iter;
         b->printHistory();
         cout << endl;
     }
 }
 
-void Board::writeHistoryToFile(){
-    ofstream fout("bugs_life_history_date_time.out");  // creating a file output stream to bugs_life_history_date_time.out.
-    if(fout){   // checking file is opened correctly
-        fout << displayLifeHistory() << endl;
+void Board::writeHistoryToFile() {
+    ofstream fout(
+            "bugs_life_history_date_time.out");  // creating a file output stream to bugs_life_history_date_time.out.
+
+    if (fout) {   // checking file is opened correctly
+        for (auto iter = bug_vector.begin(); iter != bug_vector.end(); iter++) {
+            Bug *b = *iter;
+//            string bugHistory = b->printHistory();
+            fout << b << endl;
+        }
+
         fout.close();
-    }else{
+    } else {
         cout << "Unable to open file." << endl;
     }
-
 }
 
 

@@ -58,6 +58,7 @@ int main() {
                     //tap bug board (moves all bugs - fight/eat)
                     brd.tapBugBrd();
                     //TODO: when calling the move function - need to check if there are bugs in the same cell
+                    // for the eat functionality
                     break;
                 }
                 case 5: {
@@ -76,6 +77,7 @@ int main() {
                 case 8: {
                     //write life history of all bugs to file before exit
                     // create a new text file for this
+                    brd.writeHistoryToFile();
                 }
             }
 
