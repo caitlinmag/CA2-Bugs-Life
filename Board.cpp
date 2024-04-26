@@ -154,6 +154,16 @@ void Board::displayLifeHistory() {
         b->printHistory();
         cout << endl;
     }
+}
+
+void Board::writeHistoryToFile(){
+    ofstream fout("bugs_life_history_date_time.out");  // creating a file output stream to bugs_life_history_date_time.out.
+    if(fout){   // checking file is opened correctly
+        fout << displayLifeHistory() << endl;
+        fout.close();
+    }else{
+        cout << "Unable to open file." << endl;
+    }
 
 }
 
