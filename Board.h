@@ -31,6 +31,8 @@ public:
     void tapBugBrd();
 
     void displayLifeHistory();
+
+    void writeHistoryToFile();
 };
 
 #endif //CA2_BUGS_LIFE_BOARD_H
