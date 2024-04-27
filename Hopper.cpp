@@ -164,3 +164,8 @@ string Hopper::bugHistoryToString() {
 
     return bugHistory;
 }
+
+string Hopper:: getBugType(){
+    string hopperType = "Hopper";
+    return hopperType;
+}

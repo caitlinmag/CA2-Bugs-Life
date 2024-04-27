@@ -67,6 +67,7 @@ int main() {
                 }
                 case 6: {
                     //display all cells listing their bugs
+                    brd.displayAllCells();
                     break;
                 }
                 case 7: {
