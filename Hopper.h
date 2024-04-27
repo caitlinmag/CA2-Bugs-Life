@@ -22,11 +22,12 @@ public:
 
     Hopper(int id, int x, int y, Direction direction, int size, int hopLength, bool alive);
 
-// function prototype
+    // methods
     void move() override;
     void setRandomDirection() override;
     void print() const override ;
     void printHistory() const override;
+    std::string bugHistoryToString()  override;
 };
 
 #endif //CA2_BUGS_LIFE_HOPPER_H

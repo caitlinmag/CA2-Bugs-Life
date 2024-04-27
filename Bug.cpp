@@ -85,3 +85,5 @@ void Bug::print() const {}
 
 void Bug::printHistory() const {}
 
+string Bug::bugHistoryToString() { }
+

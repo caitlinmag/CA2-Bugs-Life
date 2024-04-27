@@ -20,11 +20,11 @@ Hopper::Hopper(int id, int x, int y, Direction direction, int size, int hopLengt
 
 // need to check if wayIsBlocked() everytime a bug moves - if it is then move to a random cell
 void Hopper::move() {      //implementation of Hopper move()
-    cout << "Moving a hopper bug " << endl;
+//    cout << "Moving a hopper bug " << endl;
 
     // check if the path is empty then add position
-    // without this - current bug positions were displaying twice before move
-    if(this->path.empty()){
+    // without this - current bug positions were displaying twice before moving to a new position
+    if (this->path.empty()) {
         this->path.push_back(position);
     }
 
@@ -83,10 +83,11 @@ void Hopper::move() {      //implementation of Hopper move()
 
     // record new position in path
     this->path.push_back(position);
+    cout << "Bug " << id << " has moved to " << "(" << position.first << "," << position.second << ")" << endl;
 }
 
 void Hopper::setRandomDirection() {
-    cout << "setting a new direction using random" << endl;
+//    cout << "setting a new direction using random" << endl;
 
     /*
      *  From StackOverflow:
@@ -126,6 +127,40 @@ void Hopper::printHistory() const {
     cout << this->id << " Hopper Path: ";
 
     for (auto listIter = path.begin(); listIter != path.end(); listIter++) {
-        cout << "(" << listIter->first << "," << listIter->second << ")" << ",";
+        pair<int, int> p = *listIter;
+
+        cout << "(" << p.first << "," << p.second << ")" << ",";
     }
+
+    // checking if bug has been eaten
+    if (alive) {
+        cout << " Alive!";
+    } else {
+        // display who ate the bug
+        cout << "Eaten by ";
+    }
+}
+
+//  Used this website to learn how to add to a string in C++ as I wasn't sure
+//  https://www.geeksforgeeks.org/stdstringappend-vs-stdstringpush_back-vs-operator-c/
+string Hopper::bugHistoryToString() {
+    string bugHistory;
+
+    bugHistory += "Hopper Path: ";
+
+    // TODO: check for the last comma - want to take it out
+
+    // iterate through the path
+    for (auto listIter = path.begin(); listIter != path.end(); listIter++) {
+        pair<int, int> p = *listIter;
+        // adding the path to the string one by one
+        bugHistory += "(";
+        bugHistory += std::to_string(p.first);
+        bugHistory += ",";
+        bugHistory += std::to_string(p.second);
+        bugHistory += ")";
+        bugHistory += ",";
+    }
+
+    return bugHistory;
 }
