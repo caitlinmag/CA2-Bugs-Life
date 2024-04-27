@@ -20,12 +20,12 @@ Crawler::Crawler(int id, int x, int y, Direction direction, int size, bool alive
     this->alive = alive;
 };
 
-//implementation of Crawler move()
+// implementation of Crawler move()
 void Crawler::move() {
-    cout << "Moving a crawler bug " << endl;
+//    cout << "Moving a crawler bug " << endl;
 
     // check if the path is empty then add position
-    // without this - current bug positions were displaying twice before move
+    // without this - current bug positions were displaying twice before moving to a new position
     if(this->path.empty()){
         this->path.push_back(position);
     }
@@ -65,10 +65,11 @@ void Crawler::move() {
 
     // add new position to the path, after bug has moved
     this->path.push_back(position);
+    cout << "Bug " << id << " has moved to " << "(" << position.first << "," << position.second << ")" << endl;
 }
 
 void Crawler::setRandomDirection() {
-    cout << "setting a new direction using random" << endl;
+//    cout << "setting a new direction using random" << endl;
     /*
      *  From StackOverflow:
      *  https://stackoverflow.com/questions/30540078/using-c-rand-to-get-random-directions-up-down-left-right-always-getting#:~:text=company%20blog-,Using%20C%2B%2B%20rand()%20to%20get%20random%20directions%20(up%2Fdown,%2Fright)%20%2D%20always%20getting%20up&text=It%20randomly%20gets%20a%20number,always%20sets%20the%20pieces%20vertically
@@ -98,7 +99,6 @@ void Crawler::setRandomDirection() {
     }
 }
 
-
 // printing the fields of a Crawler bug
 void Crawler::print() const {
     cout << this->id << " Crawler " << "(" << this->position.first << "," << this->position.second << ") " << this->size
@@ -110,13 +110,38 @@ void Crawler::printHistory() const {
     cout << this->id << " Crawler Path: ";
 
     for (auto listIter = path.begin(); listIter != path.end(); listIter++){
-        cout << "(" << listIter->first << "," << listIter->second << ")" << ",";
+        pair<int, int> p = *listIter;
+        cout << "(" << p.first << "," << p.second << ")" << ",";
     }
 
     // checking if bug has been eaten
-
-    // display who ate the bug
-
-    // otherwise display "Alive!"
+        if(alive){
+            cout << " Alive!";
+        }else{
+            // display who ate the bug
+            cout << "Eaten by ";
+        }
 }
 
+string Crawler::bugHistoryToString() {
+    string bugHistory;
+
+    bugHistory += "Crawler Path: ";
+    // iterate through the path
+    for (auto listIter = path.begin(); listIter != path.end(); listIter++) {
+        pair<int, int> p = *listIter;
+
+        // TODO: check for the last comma - want to take it out
+
+
+        // adding the path to the string one by one
+        bugHistory += "(";
+        bugHistory += std::to_string(p.first);
+        bugHistory += ",";
+        bugHistory += std::to_string(p.second);
+        bugHistory += ")";
+        bugHistory += ",";
+    }
+
+    return bugHistory;
+}

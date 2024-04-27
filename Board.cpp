@@ -147,9 +147,6 @@ void Board::tapBugBrd() {
         Bug *b = *iter;
         b->move();
     }
-//    for(Bug* bugPtr: bug_vector){   // call the move methods for crawler and hopper bugs
-//        bugPtr->move();             // use this for menu option 4 - tap the board bug
-//    }
 }
 
 void Board::displayLifeHistory() {
@@ -161,21 +158,17 @@ void Board::displayLifeHistory() {
     }
 }
 
-void Board::writeHistoryToFile() {
-    ofstream fout(
-            "bugs_life_history_date_time.out");  // creating a file output stream to bugs_life_history_date_time.out.
-
-    if (fout) {   // checking file is opened correctly
+void Board::writeHistoryToFile(ostream &fileOutput) {
+    cout << "**************    WRITING BUG HISTORY TO FILE    **************" << endl;
         for (auto iter = bug_vector.begin(); iter != bug_vector.end(); iter++) {
             Bug *b = *iter;
-//            string bugHistory = b->printHistory();
-            fout << b << endl;
+            string history = b->bugHistoryToString();
+            fileOutput  << history << endl;
         }
 
-        fout.close();
-    } else {
-        cout << "Unable to open file." << endl;
+    for (Bug *ptr: bug_vector) {
+        delete ptr;                 // free the memory
     }
+
+    bug_vector.clear();    // clear the contents of the bug_vector
 }
-
-

@@ -22,6 +22,8 @@ protected:
 public:
     Board();
 
+//    std::string bugHistoryToString;
+
     void fillBugsVector(std::ifstream &fin);
 
     void displayAllBugs();
@@ -32,7 +34,7 @@ public:
 
     void displayLifeHistory();
 
-    void writeHistoryToFile();
+    void writeHistoryToFile(std::ostream &fileOutput);
 };
 
 #endif //CA2_BUGS_LIFE_BOARD_H

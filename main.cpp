@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream> //to access file input and output
+#include <ostream>
 #include <vector>
 #include "Bug.h"
 #include "Crawler.h"
@@ -10,8 +11,6 @@
 #include <list>
 
 using namespace std;
-
-//function prototypes
 
 int main() {
     Board brd;                                    // make a board object
@@ -57,7 +56,7 @@ int main() {
                 case 4: {
                     //tap bug board (moves all bugs - fight/eat)
                     brd.tapBugBrd();
-                    //TODO: when calling the move function - need to check if there are bugs in the same cell
+                    //TODO: when calling the eat function - need to check if there are bugs in the same cell
                     // for the eat functionality
                     break;
                 }
@@ -77,7 +76,16 @@ int main() {
                 case 8: {
                     //write life history of all bugs to file before exit
                     // create a new text file for this
-                    brd.writeHistoryToFile();
+                    // creating a file output stream to bugs_life_history_date_time.out.
+                    ofstream fileOutput("bugs_life_history_date_time.out");
+
+                    if (fileOutput) {   // checking file is opened correctly
+                        brd.writeHistoryToFile(fileOutput);
+                    } else {
+                        cout << "Unable to open file." << endl;
+                    }
+
+                    fileOutput.close();
                 }
             }
 
@@ -87,14 +95,6 @@ int main() {
         cout << "Unable to open the file" << endl;
     }
     fin.close();
-
-    return 0;
-
-//    for(Bug* ptr: bug_vector){
-//        delete ptr;                 // free the memory
-//    }
-//
-//    bug_vector.clear();             // clear the contents of the bug_vector
 
     return 0;
 }

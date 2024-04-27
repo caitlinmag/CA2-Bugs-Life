@@ -16,8 +16,6 @@ enum Direction {             //direction the bug is facing
     West = 4
 };
 
-
-
 class Bug {          //abstract base class Bug
 protected:
     int id;                     //bug id
@@ -29,8 +27,8 @@ protected:
     int size;                 //bug size will initially be 1 - 20
 
     bool alive;               //bug life status - set to true initially (false when bug has been eaten)
-
-    std::list<std::pair<int, int>> path;    //path taken by bug (list of positions on grid)
+    std::list<std::pair<int, int>> path
+   ;    //path taken by bug (list of positions on grid)
 
 public:
     virtual ~Bug(); //virtual Bug destructor - can be overridden in crawler, and hopper class
@@ -54,6 +52,6 @@ public:
     virtual void setRandomDirection() = 0;
     virtual void print() const = 0;
     virtual void printHistory() const = 0;
+    virtual std::string bugHistoryToString()  = 0;
 };
-
 #endif //CA2_BUGS_LIFE_BUG_H
