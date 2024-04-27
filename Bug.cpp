@@ -36,6 +36,12 @@ bool Bug::getAlive() const {
     }
 }
 
+const pair<int, int> &Bug::getPosition() const {
+    return position;
+}
+
+string Bug::getBugType() {}
+
 // the bug board is 10 x 10 so max is so min cell is 0 and max is 9
 bool Bug::isWayBlocked() {
     int x = this->position.first;
@@ -85,5 +91,7 @@ void Bug::print() const {}
 
 void Bug::printHistory() const {}
 
-string Bug::bugHistoryToString() { }
+string Bug::bugHistoryToString() {}
+
+
 

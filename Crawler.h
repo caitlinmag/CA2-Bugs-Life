@@ -19,6 +19,7 @@ public:
     void print() const override; // displaying fields of a Crawler Bug
     void printHistory() const override;
     std::string bugHistoryToString()  override;
+    std::string getBugType() override;
 };
 #endif //CA2_BUGS_LIFE_CRAWLER_H
 

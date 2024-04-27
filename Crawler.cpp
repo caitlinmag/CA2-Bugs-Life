@@ -132,8 +132,6 @@ string Crawler::bugHistoryToString() {
         pair<int, int> p = *listIter;
 
         // TODO: check for the last comma - want to take it out
-
-
         // adding the path to the string one by one
         bugHistory += "(";
         bugHistory += std::to_string(p.first);
@@ -144,4 +142,9 @@ string Crawler::bugHistoryToString() {
     }
 
     return bugHistory;
+}
+
+string Crawler:: getBugType(){
+    string crawlerType = "Crawler";
+    return crawlerType;
 }

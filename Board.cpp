@@ -142,11 +142,12 @@ void Board::findBugById() {
 
 void Board::tapBugBrd() {
     cout << "**************    TAP THE BUG BOARD    **************" << endl;
-
     for (auto iter = bug_vector.begin(); iter != bug_vector.end(); iter++) {
         Bug *b = *iter;
         b->move();
     }
+
+    // call the eat method in here
 }
 
 void Board::displayLifeHistory() {
@@ -160,15 +161,54 @@ void Board::displayLifeHistory() {
 
 void Board::writeHistoryToFile(ostream &fileOutput) {
     cout << "**************    WRITING BUG HISTORY TO FILE    **************" << endl;
-        for (auto iter = bug_vector.begin(); iter != bug_vector.end(); iter++) {
-            Bug *b = *iter;
-            string history = b->bugHistoryToString();
-            fileOutput  << history << endl;
-        }
+    for (auto iter = bug_vector.begin(); iter != bug_vector.end(); iter++) {
+        Bug *b = *iter;
+        string history = b->bugHistoryToString();
+        fileOutput << history << endl;
+    }
 
     for (Bug *ptr: bug_vector) {
         delete ptr;                 // free the memory
     }
-
     bug_vector.clear();    // clear the contents of the bug_vector
+}
+
+void Board::displayAllCells() {
+    cout << "**************    DISPLAYING ALL CELLS    **************" << endl;
+    // populate the boardCells list to be 10 x 10
+    // min (0,0) and max (9,9)
+    for (int i = 0; i < 10; ++i) {
+        for (int j = 0; j < 10; ++j) {
+            // make the pair and add to the boardCells list
+            boardCells.push_back(make_pair(i, j));
+        }
+    }
+
+    // iterate through the board list
+    for (auto listIter = boardCells.begin(); listIter != boardCells.end(); listIter++) {
+        pair<int, int> brdCells = *listIter;
+        // output the board cell e.g (0,0)
+        cout << "(" << brdCells.first << "," << brdCells.second << ")" << ": ";
+
+        bool emptyCell = true;
+
+        // iterate through the bug_vector to check if a bug is in the cell
+        for (auto iter = bug_vector.begin(); iter != bug_vector.end(); iter++) {
+            Bug *b = *iter;
+
+            // get the bug position
+            // if bug position matches the cell in the board
+            if (b->getPosition() == brdCells) {
+                // print the bug id
+                cout << b->getBugType() << " " << b->getBugId() << ", ";
+                emptyCell = false;
+            }
+        }
+
+        // check if the cell is empty then output
+        if (emptyCell) {
+            cout << "empty";
+        }
+        cout << endl;
+    }
 }
