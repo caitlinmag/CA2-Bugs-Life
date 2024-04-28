@@ -153,7 +153,7 @@ string Hopper::bugHistoryToString() {
 
     bugHistory += "Hopper Path: ";
 
-    // TODO: check for the last comma - want to take it out
+    // would have liked to be able to check if at the end of a line and then not print the comma, but I wasn't sure how to
 
     // iterate through the path
     for (auto listIter = path.begin(); listIter != path.end(); listIter++) {
