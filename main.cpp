@@ -1,14 +1,7 @@
 #include <iostream>
 #include <fstream> //to access file input and output
 #include <ostream>
-#include <vector>
-#include "Bug.h"
-#include "Crawler.h"
-#include "Hopper.h"
 #include "Board.h"
-#include <string>
-#include <sstream>
-#include <list>
 
 using namespace std;
 
@@ -81,6 +74,7 @@ int main() {
                     ofstream fileOutput("bugs_life_history_date_time.out");
 
                     if (fileOutput) {   // checking file is opened correctly
+                        // calling the method to write the history to file
                         brd.writeHistoryToFile(fileOutput);
                     } else {
                         cout << "Unable to open file." << endl;

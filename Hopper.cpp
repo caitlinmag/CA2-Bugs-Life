@@ -5,6 +5,11 @@
 #include "Hopper.h"
 #include <iostream>
 #include <list>
+#include <vector>
+#include <chrono>
+#include <random>
+#include <algorithm>
+
 
 using namespace std;
 
@@ -81,18 +86,20 @@ void Hopper::move() {
 }
 
 void Hopper::setRandomDirection() {
-//    cout << "setting a new direction using random" << endl;
+    cout << "Setting a new direction using random" << endl;
+    // Trying to get a random number by using the shuffle()
+    // making a vector of ints from 1 - 4 , to represent the directions
+    vector<int> randomNums = {1, 2, 3, 4};
 
-    /*
-     *  From StackOverflow:
-     *  https://stackoverflow.com/questions/30540078/using-c-rand-to-get-random-directions-up-down-left-right-always-getting#:~:text=company%20blog-,Using%20C%2B%2B%20rand()%20to%20get%20random%20directions%20(up%2Fdown,%2Fright)%20%2D%20always%20getting%20up&text=It%20randomly%20gets%20a%20number,always%20sets%20the%20pieces%20vertically
-     */
+    unsigned seed = chrono::system_clock::now().time_since_epoch().count();
 
-    int randNum = rand();
-    int x = (randNum % 4) + 1;      // getting a random number between 1 and 4
+    shuffle(randomNums.begin(), randomNums.end(), default_random_engine(seed));
+
+    // make the randDirectionNum equal to the first element in the shuffled vector
+    int randDirectionNum = randomNums[0];
 
     // using a switch statement to check what number x is , then assigning a direction to the number
-    switch (x) {
+    switch (randDirectionNum) {
         case 1:
             direction = Direction::North;
             cout << "Bug " << id << " New direction is North" << endl;

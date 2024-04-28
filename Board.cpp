@@ -7,6 +7,7 @@
 #include "Bug.h"
 #include "Crawler.h"
 #include "Hopper.h"
+#include "Ladybird.h"
 #include "Board.h"
 #include <string>
 #include <sstream>
@@ -69,7 +70,7 @@ void Board::fillBugsVector(ifstream &fin) {
 
             // checking the bug type - Crawler
             if (bugWithoutDelimiter[0] == "C") {
-                cout << "This is a Crawler Bug"<< endl;
+                cout << "This is a Crawler Bug" << endl;
                 cout << "Bug Type: " << bugType << endl;
                 cout << "Bug ID: " << id << endl;
                 cout << "Position x: " << x << endl;
@@ -83,6 +84,23 @@ void Board::fillBugsVector(ifstream &fin) {
 
                 // adding the Crawler bugs starting position to the path
                 bugPtr->recordStartPosition();
+
+                // checking the bug type - Ladybird
+            }else if (bugWithoutDelimiter[0] == "L"){
+                cout << "This is a Ladybird" << endl;
+                cout << "Bug Type: " << bugType << endl;
+                cout << "Bug ID: " << id << endl;
+                cout << "Position x: " << x << endl;
+                cout << "Position y: " << y << endl;
+                cout << "Direction: " << direction << endl;
+                cout << "Size: " << size << endl;
+                cout << " " << endl;
+
+                // creating a ladybird bug
+                bugPtr = new Ladybird(id, x, y, static_cast<Direction>(direction), size, alive);
+                // adding the Crawler bugs starting position to the path
+                bugPtr->recordStartPosition();
+
             } else if (bugWithoutDelimiter[0] == "H") {           // checking the bug type - Hopper
                 int hopLength = stoi(bugWithoutDelimiter[6]); // only getting the hopLength if the bug is a hopper
 
@@ -104,7 +122,6 @@ void Board::fillBugsVector(ifstream &fin) {
                 cout << "There are no hopper or crawler bugs in the file." << endl;
             }
         }
-
         // add the crawler and hopper bugs to the bug vector
         bug_vector.push_back(bugPtr);
     }
@@ -259,9 +276,10 @@ void Board::displayAllCells() {
             // get the bug position
             // if bug position matches the cell in the board
             if (bugPtr->getPosition() == brdCells) {
-                // there is a bug present in the board cell
+                // there is currently a bug present in the board cell
                 // print the bug id
                 cout << bugPtr->getBugType() << " " << bugPtr->getBugId() << ", ";
+
                 // set to false
                 emptyCell = false;
             }
@@ -274,8 +292,4 @@ void Board::displayAllCells() {
         }
         cout << endl;
     }
-}
-
-void Board::makeBugsFight() {
-
 }

@@ -30,7 +30,6 @@ public:
     void printHistory() const override;
     std::string bugHistoryToString()  override;
     std::string getBugType() override;
-
 };
 
 #endif //CA2_BUGS_LIFE_HOPPER_H

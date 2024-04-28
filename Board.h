@@ -15,9 +15,7 @@ protected:
     // declare vector of pointers to Bug objects - type vector of pointers to Bug objects
     std::vector<Bug *> bug_vector;  // make the bug_vector private to the board class
 
-    std::vector<Board *> board_vector; // hold the cells
-
-    std::list<std::pair<int, int>> boardCells;
+    std::list<std::pair<int, int>> boardCells; // hold the cells
 
 public:
     Board();
@@ -37,8 +35,6 @@ public:
     void writeHistoryToFile(std::ostream &fileOutput);
 
     void displayAllCells();
-
-    void makeBugsFight();
 };
 
 #endif //CA2_BUGS_LIFE_BOARD_H
