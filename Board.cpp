@@ -28,7 +28,7 @@ void Board::fillBugsVector(ifstream &fin) {
      *  Check if the first character in a line is C or H
      *  If its C then create a crawler object with the data
      *  If its H then create a hopper object with the data - extra field (hopLength)
-
+        I read in my bug (ladybird) the same way
      *  Populate the vector with these objects
      */
 
@@ -96,9 +96,10 @@ void Board::fillBugsVector(ifstream &fin) {
                 cout << "Size: " << size << endl;
                 cout << " " << endl;
 
+                // ladybird would have the same fields as the crawler bug
                 // creating a ladybird bug
                 bugPtr = new Ladybird(id, x, y, static_cast<Direction>(direction), size, alive);
-                // adding the Crawler bugs starting position to the path
+                // adding the ladybirds starting position to the path
                 bugPtr->recordStartPosition();
 
             } else if (bugWithoutDelimiter[0] == "H") {           // checking the bug type - Hopper
@@ -122,19 +123,19 @@ void Board::fillBugsVector(ifstream &fin) {
                 cout << "There are no hopper or crawler bugs in the file." << endl;
             }
         }
-        // add the crawler and hopper bugs to the bug vector
+        // add the crawler, hopper and ladybird bugs to the bug vector
         bug_vector.push_back(bugPtr);
     }
 }
 
-// TODO: need to fix it to say alive or dead not 1
 void Board::displayAllBugs() {
     cout << "**************    DISPLAYING ALL BUGS    **************" << endl;
     // iterate through the bugs vector and call the print method
     for (auto iter = bug_vector.begin(); iter != bug_vector.end(); iter++) {
-        Bug *bugPtr = *iter;     // dereference the iter and assign to pointer to bug object b
-        bugPtr->print();         // printing all bugs - separate crawler and hopper print methods
+        Bug *bugPtr = *iter;     // dereference the iter and assign to pointer to bug object bugPtr
+        bugPtr->print();         // printing all bugs - separate crawler, hopper and ladybird print methods
     }
+// would have liked to add "alive" or "dead" for each bug but my eat functionality isn't working correctly
 }
 
 void Board::findBugById() {
@@ -147,7 +148,7 @@ void Board::findBugById() {
 
     // iterate through the bug_vector to find the bugID
     for (auto iter = bug_vector.begin(); iter != bug_vector.end(); iter++) {
-        Bug *bugPtr = *iter;         // dereference the iter and assign to pointer to bug object b
+        Bug *bugPtr = *iter;         // dereference the iter and assign to pointer to bug object bugPtr
         if (bugPtr->getBugId() == inputId) {    // checking if the bugId is equal to the input id from the user
             cout << "Bug " << inputId << " has been found. \n" << endl;      // bug is found
             cout << "* BUG DETAILS *" << endl;
@@ -157,7 +158,8 @@ void Board::findBugById() {
     }
 
     // outside of the for loop - checking if the input bug id has NOT been found
-    // then output the message - inside the for loop it will repeat this message for every bug
+    // then output the message
+    // inside the for loop it will repeat this message for every bug, so I moved it to outside the loop
     if (!bugFound) {
         cout << "Bug " << inputId << " has not been found." << endl;      // bug is found
     }
@@ -167,7 +169,7 @@ void Board::tapBugBrd() {
     cout << "**************    TAP THE BUG BOARD    **************" << endl;
     for (auto iter = bug_vector.begin(); iter != bug_vector.end(); iter++) {
         Bug *bugPtr = *iter;
-        bugPtr->move();
+        bugPtr->move(); // calling move for all bugs
     }
 }
 
@@ -246,8 +248,7 @@ void Board::fightBugs() {
                          << brdCells.second << ")" << endl;
                     // what i would do when there is more than 2 bugs in a cell:
                     // get the sizes of the 2 smallest bugs
-                    // biggest bug eat both
-                    // add the smallest bug sizes to the size of the big bug
+                    // get the biggest bug - add the sizes of the 2 smallest bugs to the biggest bug size , as the biggest will eat both
                     // set the bool alive() to false for smallest bugs
                     // add to the path again
                 }
@@ -261,7 +262,7 @@ void Board::displayLifeHistory() {
     cout << "**************    DISPLAY BUG LIFE HISTORY    **************" << endl;
     for (auto iter = bug_vector.begin(); iter != bug_vector.end(); iter++) {
         Bug *bugPtr = *iter;
-        bugPtr->printHistory();
+        bugPtr->printHistory(); // printing the life history of all bugs
         cout << endl;
     }
 }
@@ -270,7 +271,7 @@ void Board::writeHistoryToFile(ostream &fileOutput) {
     cout << "**************    WRITING BUG HISTORY TO FILE    **************" << endl;
     for (auto iter = bug_vector.begin(); iter != bug_vector.end(); iter++) {
         Bug *bugPtr = *iter;
-        string history = bugPtr->bugHistoryToString();
+        string history = bugPtr->bugHistoryToString();  // writing the life history of all bugs to the file
         fileOutput << history << endl;
     }
 
@@ -297,6 +298,7 @@ void Board::displayAllCells() {
         // output the board cell e.g (0,0)
         cout << "(" << brdCells.first << "," << brdCells.second << ")" << ": ";
 
+        // flag to keep track of the cell being empty or occupied by a bug/bugs
         bool emptyCell = true;
 
         // iterate through the bug_vector to check if a bug is in the cell
@@ -309,7 +311,6 @@ void Board::displayAllCells() {
                 // there is currently a bug present in the board cell
                 // print the bug type and the bug id
                 cout << bugPtr->getBugType() << " " << bugPtr->getBugId() << ", ";
-
                 // set to false
                 emptyCell = false;
             }

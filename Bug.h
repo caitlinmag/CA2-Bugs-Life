@@ -20,20 +20,18 @@ class Bug {          //abstract base class Bug
 protected:
     int id;
 
+    // co-ordinate pair (x,y) - (0,0) is the top left hand cell
     std::pair<int, int> position;
-    //co-ordinate pair (x,y) - (0,0) is the top left hand cell
-
-    Direction direction;
 
     // a variable of type Direction
+    Direction direction;
 
+    // bug size will initially be 1 - 20
     int size;
 
- //bug size will initially be 1 - 20
-
+    // bug life status - set to true initially (false when bug has been eaten)
     bool alive;
 
-    //bug life status - set to true initially (false when bug has been eaten)
     std::list<std::pair<int, int>> path;    //path taken by bug (list of positions on grid)
 
 public:
