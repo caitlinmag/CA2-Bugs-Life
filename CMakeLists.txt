@@ -13,4 +13,6 @@ add_executable(CA2_Bugs_Life main.cpp
         Board.h
         Board.cpp
         Directions.h
-        Directions.h)
+        Directions.h
+        Ladybird.h
+        Ladybird.cpp)

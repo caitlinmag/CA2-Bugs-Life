@@ -2,13 +2,13 @@
 // Created by caitl on 06/04/2024.
 //
 #include "Crawler.h"
-#include "Board.h"
 #include <iostream>
 #include <random>
 #include <chrono>
 #include <vector>
 #include <algorithm>
 #include <list>
+
 using namespace std;
 
 Crawler::Crawler(int id, int x, int y, Direction direction, int size, bool alive) {
@@ -34,24 +34,28 @@ void Crawler::move() {
 
     // checking which direction the bug is CURRENTLY facing - then moving 1 unit in that direction
     // also need to ensure cells are only between 0 and 9 - the numbers can't go above 9
-    switch(this->direction){
+    switch (this->direction) {
         case North:
-            if(x >= 0){
-                this->position.first = x - 1;    // if the bug is going north they need to go up one row - so decrement by 1
+            // if the bug is going north they need to go up one row - so decrement by 1
+            if (x >= 0) {
+                this->position.first = x - 1;
             }
         case South:
-            if(x <9){
-                this->position.first = x + 1;    // if bug is going south they are going forward - so increment by 1
+            // if bug is going south they are going forward - so increment by 1
+            if (x < 9) {
+                this->position.first = x + 1;
             }
             break;
         case East:
-            if(y < 9){
-                this->position.second = y + 1;   // if bug is going east they are going right - so increment by 1
+            // if bug is going east they are going right - so increment by 1
+            if (y < 9) {
+                this->position.second = y + 1;
             }
             break;
         case West:
-            if(y > 0){
-                this->position.second = y - 1;    // if bug is going west they are going left - so decrement by 1
+            // if bug is going west they are going left - so decrement by 1
+            if (y > 0) {
+                this->position.second = y - 1;
             }
             break;
     }
@@ -62,17 +66,21 @@ void Crawler::move() {
 }
 
 void Crawler::setRandomDirection() {
-//    cout << "setting a new direction using random" << endl;
-    /*
-     *  From StackOverflow:
-     *  https://stackoverflow.com/questions/30540078/using-c-rand-to-get-random-directions-up-down-left-right-always-getting#:~:text=company%20blog-,Using%20C%2B%2B%20rand()%20to%20get%20random%20directions%20(up%2Fdown,%2Fright)%20%2D%20always%20getting%20up&text=It%20randomly%20gets%20a%20number,always%20sets%20the%20pieces%20vertically
-     */
+    cout << "Setting a new random direction." << endl;
 
-    int randNum = rand();
-    int x = (randNum % 4) + 1;      // getting a random number between 1 and 4
+    // Trying to get a random number by using the shuffle()
+    // making a vector of ints from 1 - 4 , to represent the directions
+    vector<int> randomNums = {1, 2, 3, 4};
+
+    unsigned seed = chrono::system_clock::now().time_since_epoch().count();
+
+    shuffle(randomNums.begin(), randomNums.end(), default_random_engine(seed));
+
+    // make the randDirectionNum equal to the first element in the shuffled vector
+    int randDirectionNum = randomNums[0];
 
     // using a switch statement to check what number x is , then assigning a direction to the number
-    switch (x) {
+    switch (randDirectionNum) {
         case 1:
             direction = Direction::North;
             cout << "Bug" << id << " New direction is North" << endl;
@@ -90,10 +98,20 @@ void Crawler::setRandomDirection() {
             cout << "Bug " << id << " New direction is West" << endl;
             break;
     }
+
+    /*
+ *  Not using this way anymore. From StackOverflow:
+ *  https://stackoverflow.com/questions/30540078/using-c-rand-to-get-random-directions-up-down-left-right-always-getting#:~:text=company%20blog-,Using%20C%2B%2B%20rand()%20to%20get%20random%20directions%20(up%2Fdown,%2Fright)%20%2D%20always%20getting%20up&text=It%20randomly%20gets%20a%20number,always%20sets%20the%20pieces%20vertically
+ */
+//
+//    // I started with this way using rand() however there wasn't much randomness
+//    // one bug kept getting the same direction to move in
+//    int randNum = rand();
+//    int x = (randNum % 4) + 1;      // getting a random number between 1 and 4
 }
 
 void Crawler::recordStartPosition() {
-        this->path.push_back(position);
+    this->path.push_back(position);
 }
 
 // printing the fields of a Crawler bug
@@ -106,18 +124,18 @@ void Crawler::print() const {
 void Crawler::printHistory() const {
     cout << this->id << " Crawler Path: ";
 
-    for (auto listIter = path.begin(); listIter != path.end(); listIter++){
+    for (auto listIter = path.begin(); listIter != path.end(); listIter++) {
         pair<int, int> p = *listIter;
         cout << "(" << p.first << "," << p.second << ")" << ",";
     }
 
     // checking if bug has been eaten
-        if(alive){
-            cout << " Alive!";
-        }else{
-            // display who ate the bug
-            cout << "Eaten by ";
-        }
+    if (alive) {
+        cout << " Alive!";
+    } else {
+        // display who ate the bug
+        cout << "Eaten by ";
+    }
 }
 
 string Crawler::bugHistoryToString() {
@@ -128,7 +146,6 @@ string Crawler::bugHistoryToString() {
     for (auto listIter = path.begin(); listIter != path.end(); listIter++) {
         pair<int, int> p = *listIter;
 
-        // TODO: check for the last comma - want to take it out
         // adding the path to the string one by one
         bugHistory += "(";
         bugHistory += std::to_string(p.first);
@@ -141,7 +158,7 @@ string Crawler::bugHistoryToString() {
     return bugHistory;
 }
 
-string Crawler:: getBugType(){
+string Crawler::getBugType() {
     string crawlerType = "Crawler";
     return crawlerType;
 }
