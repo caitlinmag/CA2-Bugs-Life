@@ -225,7 +225,7 @@ void Board::fightBugs() {
                         bugs_in_cells[1]->setAlive(false);
                         // output message that bug2 has been eaten
                         cout << "Bug " << bugs_in_cells[1]->getBugId() << " eaten by " << bugs_in_cells[0]->getBugId();
-
+                        cout << "Bug " << bugs_in_cells[0]->getBugId() << " size is now: " << bugs_in_cells[0]->getSize();
                     } else if (bug2 > bug1) {
                         // bug 2 will eat bug 1
                         // add the size of bug1 to bug2
@@ -234,7 +234,7 @@ void Board::fightBugs() {
                         // set bug1 to dead
                         bugs_in_cells[0]->setAlive(false);
                         cout << "Bug " << bugs_in_cells[0]->getBugId() << " eaten by " << bugs_in_cells[1]->getBugId();
-
+                        cout << "Bug " << bugs_in_cells[1]->getBugId() << " size is now: " << bugs_in_cells[1]->getSize();
                     } else {
                         // bugs are the same size
                         cout << "The bugs " << bugs_in_cells[0]->getBugId() << " and " << bugs_in_cells[0]->getBugId()
