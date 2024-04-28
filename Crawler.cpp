@@ -117,7 +117,7 @@ void Crawler::recordStartPosition() {
 // printing the fields of a Crawler bug
 void Crawler::print() const {
     cout << this->id << " Crawler " << "(" << this->position.first << "," << this->position.second << ") " << this->size
-         << " " << directionToString(this->direction) << " " << this->getAlive() << endl;
+         << " " << directionToString(this->direction) << " " << endl;
 }
 
 // check if its at the end of list and output comma if not don't

@@ -125,7 +125,7 @@ void Hopper::recordStartPosition() {
 
 void Hopper::print() const {
     cout << this->id << " Hopper " << "(" << this->position.first << "," << this->position.second << ") " << this->size
-         << " " << directionToString(this->direction) << " " << this->hopLength << " " << this->alive << endl;
+         << " " << directionToString(this->direction) << " " << this->hopLength << " " << endl;
 }
 
 void Hopper::printHistory() const {

@@ -113,6 +113,13 @@ bool Bug::operator>(const Bug &other) {
         return false;
 }
 
+void Bug::setSize(int size) {
+    Bug::size = size;
+}
+
+
+
+
 
 
 

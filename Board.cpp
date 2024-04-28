@@ -60,7 +60,7 @@ void Board::fillBugsVector(ifstream &fin) {
 // size >= 6 as a bug would have no more than 6 fields (crawler = 5 , hopper = 6)
 // using the method stoi() to convert the strings to ints and storing them in bug field variables
 // getting the bug fields based on the position in the bugWithoutDelimiter vector
-        if (bugWithoutDelimiter.size() >=6) {
+        if (bugWithoutDelimiter.size() >= 6) {
             string bugType = bugWithoutDelimiter[0];
             int id = stoi(bugWithoutDelimiter[1]);
             int x = stoi(bugWithoutDelimiter[2]);
@@ -86,7 +86,7 @@ void Board::fillBugsVector(ifstream &fin) {
                 bugPtr->recordStartPosition();
 
                 // checking the bug type - Ladybird
-            }else if (bugWithoutDelimiter[0] == "L"){
+            } else if (bugWithoutDelimiter[0] == "L") {
                 cout << "This is a Ladybird" << endl;
                 cout << "Bug Type: " << bugType << endl;
                 cout << "Bug ID: " << id << endl;
@@ -169,21 +169,21 @@ void Board::tapBugBrd() {
         Bug *bugPtr = *iter;
         bugPtr->move();
     }
+}
 
+void Board::fightBugs() {
     // implementing the eat functionality when the board is tapped
     cout << "**************    FIGHTING BUGS    **************" << endl;
-
-    // use a boolean to flag if the bug is smallest
-    // flag is there is more than one bug in the cell
-    // flag to check if there is a bugPresent in the cell
-    bool smallestBug, moreThanOne, bugPresent;
-
-    // use a counter to count how many bugs there is in each cell
-    int count = 0;
 
     // iterate through cells on the board
     for (auto listIter = boardCells.begin(); listIter != boardCells.end(); listIter++) {
         pair<int, int> brdCells = *listIter;
+
+        // use a counter to count how many bugs there is in each cell
+        int count = 0;
+
+        // make a vector to hold the bugs that are in the current cell
+        vector<Bug *> bugs_in_cells;
 
         // iterate through the bug_vector to check if a bug is in the cell
         for (auto iter = bug_vector.begin(); iter != bug_vector.end(); iter++) {
@@ -195,36 +195,66 @@ void Board::tapBugBrd() {
             if (bugPtr->getPosition() == brdCells) {
                 // increment the count - to get how many bugs is in the cell
                 count++;
+                // add the bug or bugs to the vector
+                bugs_in_cells.push_back(bugPtr);
+            }
 
-                // get the size of the bug
-                int bugSize = bugPtr->getSize();
-
-                // get the first bug in the cell
+            // checking there are bugs in the cell
+            if (count > 0) {
+                // check if there is 1 bug in the cell
                 if (count == 1) {
-                    // get the bug size
-                    // compare the sizes
+                    cout << "There is only one bug present in the cell: " << "(" << brdCells.first << "," << brdCells.second << ")" << endl;
+                    // check if cell has 2 bugs
+                } else if (count == 2) {
+                    cout << "There are 2 bugs in the cell: " << "(" << brdCells.first << "," << brdCells.second << ")"
+                         << endl;
+
+                    // get the sizes of the 2 bugs in the cell
+                    int bug1 = bugs_in_cells[0]->getSize();
+                    int bug2 = bugs_in_cells[1]->getSize();
+
                     // biggest bug will eat the other
-                    // add to the path again
+                    if (bug1 > bug2) {
+                        // add the size of bug2 to the size of bug 1
+                        bug1 += bug2;
+                        // set the new size of bug1
+                        bugs_in_cells[0]->setSize(bug1);
+                        // set bug2 to dead
+                        bugs_in_cells[1]->setAlive(false);
+                        // output message that bug2 has been eaten
+                        cout << "Bug " << bugs_in_cells[1]->getBugId() << " eaten by " << bugs_in_cells[0]->getBugId();
 
-                    cout << "There are 2 bugs in the cell: " << "(" << brdCells.first << "," << brdCells.second << ")" << endl;
+                    } else if (bug2 > bug1) {
+                        // bug 2 will eat bug 1
+                        // add the size of bug1 to bug2
+                        bug2 += bug1;
+                        bugs_in_cells[1]->setSize(bug2);
+                        // set bug1 to dead
+                        bugs_in_cells[0]->setAlive(false);
+                        cout << "Bug " << bugs_in_cells[0]->getBugId() << " eaten by " << bugs_in_cells[1]->getBugId();
 
-                    // check if cell has more than 2 bugs
-                } else if (count > 2) {
+                    } else {
+                        // bugs are the same size
+                        cout << "The bugs " << bugs_in_cells[0]->getBugId() << " and " << bugs_in_cells[0]->getBugId()
+                             << " are the same size";
+                        // winner would need to be resolved at random
+                    }
+
+                    // check if there are more than 2 bugs in the cell
+                } else if (count == 3) {
+                    cout << "There are" << count << " bugs in the cell: " << "(" << brdCells.first << ","
+                         << brdCells.second << ")" << endl;
+                    // what i would do when there is more than 2 bugs in a cell:
                     // get the sizes of the 2 smallest bugs
                     // biggest bug eat both
                     // add the smallest bug sizes to the size of the big bug
                     // set the bool alive() to false for smallest bugs
                     // add to the path again
-
-
-                    cout << "There are" << count <<  " bugs in the cell: " << "(" << brdCells.first << "," << brdCells.second << ")" << endl;
-                } else {
-                    cout << "There is only one bug present in the cell: " << "(" << brdCells.first << "," << brdCells.second << ")" << endl;
                 }
             }
         }
     }
-    // maybe make a method for solving the winner at random if the bug sizes are the same
+    // could have made a method for solving the winner at random if the bug sizes are the same
 }
 
 void Board::displayLifeHistory() {
@@ -277,7 +307,7 @@ void Board::displayAllCells() {
             // if bug position matches the cell in the board
             if (bugPtr->getPosition() == brdCells) {
                 // there is currently a bug present in the board cell
-                // print the bug id
+                // print the bug type and the bug id
                 cout << bugPtr->getBugType() << " " << bugPtr->getBugId() << ", ";
 
                 // set to false
