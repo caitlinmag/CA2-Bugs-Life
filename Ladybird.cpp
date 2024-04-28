@@ -47,7 +47,7 @@ void Ladybird::recordStartPosition() {
 }
 
 void Ladybird::print() const {
-    cout << this->id << " Ladybird " << "(" << this->position.first << "," << this->position.second << ") " << this->size << " " << directionToString(this->direction) << " " << this->getAlive() << endl;
+    cout << this->id << " Ladybird " << "(" << this->position.first << "," << this->position.second << ") " << this->size << " " << directionToString(this->direction) << " " << endl;
 }
 
 void Ladybird::printHistory() const {

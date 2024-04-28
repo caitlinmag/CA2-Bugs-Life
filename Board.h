@@ -35,6 +35,8 @@ public:
     void writeHistoryToFile(std::ostream &fileOutput);
 
     void displayAllCells();
+
+    void fightBugs();
 };
 
 #endif //CA2_BUGS_LIFE_BOARD_H

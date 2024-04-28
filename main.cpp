@@ -47,10 +47,10 @@ int main() {
                     break;
                 }
                 case 4: {
-                    //tap bug board (moves all bugs - fight/eat)
+                    //tap bug board - move all bugs
                     brd.tapBugBrd();
-                    //TODO: when calling the eat function - need to check if there are bugs in the same cell
-                    // for the eat functionality
+                    // then make bugs fight/eat
+                    brd.fightBugs();
                     break;
                 }
                 case 5: {

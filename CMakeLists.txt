@@ -16,3 +16,4 @@ add_executable(CA2_Bugs_Life main.cpp
         Directions.h
         Ladybird.h
         Ladybird.cpp)
+

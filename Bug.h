@@ -18,24 +18,21 @@ enum Direction {             //direction the bug is facing
 
 class Bug {          //abstract base class Bug
 protected:
-    int id;                     //bug id
+    int id;
 
-    std::pair<int, int> position;   //co-ordinate pair (x,y) - (0,0) is the top left hand cell
+    std::pair<int, int> position;
+    //co-ordinate pair (x,y) - (0,0) is the top left hand cell
 
-    Direction direction;      // a variable of type Direction
+    Direction direction;
+
+    // a variable of type Direction
 
     int size;
-public:
-    int getSize() const;
 
-protected:
-    //bug size will initially be 1 - 20
+ //bug size will initially be 1 - 20
 
     bool alive;
-public:
-    void setAlive(bool alive);
 
-protected:
     //bug life status - set to true initially (false when bug has been eaten)
     std::list<std::pair<int, int>> path;    //path taken by bug (list of positions on grid)
 
@@ -45,6 +42,12 @@ public:
     int getBugId() const;
 
     bool getAlive() const;
+
+    void setAlive(bool alive);
+
+    void setSize(int size);
+
+    int getSize() const;
 
     const std::pair<int, int> &getPosition() const;
 
@@ -70,10 +73,5 @@ public:
     virtual std::string bugHistoryToString()  = 0;
     virtual std::string getBugType();
     virtual void recordStartPosition() = 0;
-
-    // TODO: add a new bug type
-    // ladybird
-    // for move method take in user input for what cell they would like the ladybird to fly to
-
 };
 #endif //CA2_BUGS_LIFE_BUG_H
