@@ -22,13 +22,6 @@ Crawler::Crawler(int id, int x, int y, Direction direction, int size, bool alive
 
 // implementation of Crawler move()
 void Crawler::move() {
-//    cout << "Moving a crawler bug " << endl;
-
-    // check if the path is empty then add position
-    // without this - current bug positions were displaying twice before moving to a new position
-    if(this->path.empty()){
-        this->path.push_back(position);
-    }
 
     // check if bug is at the edge of board - if true then means they cant move in current direction
     while (isWayBlocked()) {  // loop until we have a possible way to go
@@ -65,7 +58,7 @@ void Crawler::move() {
 
     // add new position to the path, after bug has moved
     this->path.push_back(position);
-    cout << "Bug " << id << " has moved to " << "(" << position.first << "," << position.second << ")" << endl;
+    cout << "Crawler" << " Bug " << id << " has moved to: " << "(" << position.first << "," << position.second << ")" << endl;
 }
 
 void Crawler::setRandomDirection() {
@@ -82,21 +75,25 @@ void Crawler::setRandomDirection() {
     switch (x) {
         case 1:
             direction = Direction::North;
-            cout << "New direction is North" << endl;
+            cout << "Bug" << id << " New direction is North" << endl;
             break;
         case 2:
             direction = Direction::East;
-            cout << "New direction is east" << endl;
+            cout << "Bug " << id << " New direction is East" << endl;
             break;
         case 3:
             direction = Direction::South;
-            cout << "New direction is south" << endl;
+            cout << "Bug " << id << " New direction is South" << endl;
             break;
         case 4:
             direction = Direction::West;
-            cout << "New direction is west" << endl;
+            cout << "Bug " << id << " New direction is West" << endl;
             break;
     }
+}
+
+void Crawler::recordStartPosition() {
+        this->path.push_back(position);
 }
 
 // printing the fields of a Crawler bug
