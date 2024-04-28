@@ -16,6 +16,7 @@ public:
     // methods
     void move() override; // only the function prototype
     void setRandomDirection() override;
+    void recordStartPosition() override;
     void print() const override; // displaying fields of a Crawler Bug
     void printHistory() const override;
     std::string bugHistoryToString()  override;

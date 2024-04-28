@@ -24,9 +24,19 @@ protected:
 
     Direction direction;      // a variable of type Direction
 
-    int size;                 //bug size will initially be 1 - 20
+    int size;
+public:
+    int getSize() const;
 
-    bool alive;               //bug life status - set to true initially (false when bug has been eaten)
+protected:
+    //bug size will initially be 1 - 20
+
+    bool alive;
+public:
+    void setAlive(bool alive);
+
+protected:
+    //bug life status - set to true initially (false when bug has been eaten)
     std::list<std::pair<int, int>> path;    //path taken by bug (list of positions on grid)
 
 public:
@@ -40,7 +50,9 @@ public:
 
     static std::string directionToString(Direction direction) ;
 
-//    std::pair<int, int> getPosition(){};
+    bool operator>(Bug const &obj);
+
+    Bug operator+(const Bug &otherBug);
 
     // Used to move a bug from current position to new position
     // this will be based on rules for the bug type
@@ -57,6 +69,11 @@ public:
     virtual void printHistory() const = 0;
     virtual std::string bugHistoryToString()  = 0;
     virtual std::string getBugType();
+    virtual void recordStartPosition() = 0;
+
+    // TODO: add a new bug type
+    // ladybird
+    // for move method take in user input for what cell they would like the ladybird to fly to
 
 };
 #endif //CA2_BUGS_LIFE_BUG_H

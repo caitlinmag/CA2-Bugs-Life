@@ -18,16 +18,10 @@ Hopper::Hopper(int id, int x, int y, Direction direction, int size, int hopLengt
     this->alive = alive;
 }
 
-// need to check if wayIsBlocked() everytime a bug moves - if it is then move to a random cell
-void Hopper::move() {      //implementation of Hopper move()
-//    cout << "Moving a hopper bug " << endl;
+//  Implementation of Hopper move()
+void Hopper::move() {
 
-    // check if the path is empty then add position
-    // without this - current bug positions were displaying twice before moving to a new position
-    if (this->path.empty()) {
-        this->path.push_back(position);
-    }
-
+    // need to check if wayIsBlocked() everytime a bug moves - if it is then move to a random cell
     while (isWayBlocked()) {
         setRandomDirection();
     }
@@ -61,8 +55,8 @@ void Hopper::move() {      //implementation of Hopper move()
         case East:
             // checking if y plus the hopLength is less than 9 - then the bug can move the full hopLength
             if (y + hopLength <= 9) {
-                this->position.second = y +
-                                        hopLength;   // if bug is going east they are going right one column - so increment by hopLength
+                // if bug is going east they are going right one column - so increment by hopLength
+                this->position.second = y + hopLength;
             } else {
                 // can't move the full hopLength so set y to 9 - the edge
                 this->position.second = 9;
@@ -71,8 +65,8 @@ void Hopper::move() {      //implementation of Hopper move()
         case West:
             // checking if y minus the hopLength is greater than 0 - then the bug can move the full hopLength
             if (y - hopLength >= 0) {
-                this->position.second = y -
-                                        hopLength;    // if bug is going west they are going left one column - so decrement by hopLength
+                // if bug is going west they are going left one column - so decrement by hopLength
+                this->position.second = y -hopLength;
             } else {
                 // can't move the full hopLength so set y to 0 - the edge
                 this->position.second = 0;
@@ -83,7 +77,7 @@ void Hopper::move() {      //implementation of Hopper move()
 
     // record new position in path
     this->path.push_back(position);
-    cout << "Bug " << id << " has moved to " << "(" << position.first << "," << position.second << ")" << endl;
+    cout << "Bug " << id << " has moved to: " << "(" << position.first << "," << position.second << ")" << endl;
 }
 
 void Hopper::setRandomDirection() {
@@ -101,21 +95,25 @@ void Hopper::setRandomDirection() {
     switch (x) {
         case 1:
             direction = Direction::North;
-            cout << "New direction is North" << endl;
+            cout << "Bug " << id << " New direction is North" << endl;
             break;
         case 2:
             direction = Direction::East;
-            cout << "New direction is east" << endl;
+            cout << "Bug " << id << " New direction is East" << endl;
             break;
         case 3:
             direction = Direction::South;
-            cout << "New direction is south" << endl;
+            cout << "Bug " << id << " New direction is South" << endl;
             break;
         case 4:
             direction = Direction::West;
-            cout << "New direction is west" << endl;
+            cout << "Bug " << id << " New direction is West" << endl;
             break;
     }
+}
+
+void Hopper::recordStartPosition() {
+    this->path.push_back(position);
 }
 
 void Hopper::print() const {
@@ -161,7 +159,6 @@ string Hopper::bugHistoryToString() {
         bugHistory += ")";
         bugHistory += ",";
     }
-
     return bugHistory;
 }
 

@@ -13,7 +13,7 @@
 using namespace std;
 
 int main() {
-    Board brd;                                    // make a board object
+    Board brd;   // make a board object
 
     // read data from text file "bugs.txt"
     ifstream fin("bugs.txt");         //create input file stream to the text file "bugs.txt"

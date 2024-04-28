@@ -25,10 +25,12 @@ public:
     // methods
     void move() override;
     void setRandomDirection() override;
+    void recordStartPosition() override;
     void print() const override ;
     void printHistory() const override;
     std::string bugHistoryToString()  override;
     std::string getBugType() override;
+
 };
 
 #endif //CA2_BUGS_LIFE_HOPPER_H
